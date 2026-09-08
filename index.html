@@ -6,8 +6,10 @@
   <title>Tortas Josefo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="image/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="image/favicon.png" type="image/png">
 </head>
-<body class="bg-white font-sans">
+<body class="bg-orange-50 font-sans">
 
   <div class="max-w-6xl mx-auto px-4 py-6 space-y-5">
 
@@ -31,11 +33,16 @@
           <p class="mt-2 text-sm">Sabor que te conquistará</p>
           <p class="mt-3 inline-block rounded bg-red-600 px-3 py-1 text-xs font-bold uppercase">Especialidad: la cubana</p>
         </div>
+        <img
+          src="image/banner-lado.png"
+          alt="Menú del puesto"
+          class="hidden h-36 w-full rounded-lg object-cover md:block md:h-48"
+        >
       </div>
     </section>
 
     <!-- Nav -->
-    <nav class="rounded-sm bg-orange-500 text-white">
+    <nav class="rounded-xl bg-orange-500 text-white shadow-md">
       <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
         <a href="index.html" class="text-lg font-bold uppercase tracking-wide">Tortas Josefo</a>
         <div class="flex flex-wrap items-center gap-4 text-sm">
@@ -49,12 +56,13 @@
           <a href="historia.html" class="hover:underline">Historia</a>
           <a href="promociones.html" class="hover:underline">Promociones</a>
           <a href="preguntas.html" class="hover:underline">Preguntas</a>
+          <a href="galeria.html" class="hover:underline">Galería</a>
         </div>
       </div>
     </nav>
 
     <!-- Carrusel -->
-    <section class="relative overflow-hidden rounded-sm">
+    <section class="relative overflow-hidden rounded-xl shadow-lg">
       <div id="slides" class="relative aspect-[16/7] bg-gray-200">
         <img class="slide absolute inset-0 h-full w-full object-cover" src="carusel/Gemini_Generated_Image_yno60vyno60vyno6.png" alt="Tortas Josefo">
         <img class="slide absolute inset-0 hidden h-full w-full object-cover" src="carusel/Gemini_Generated_Image_994lj3994lj3994l.png" alt="Torta de milanesa">
@@ -70,30 +78,33 @@
       </div>
     </section>
 
-    <section class="py-8 text-center">
+    <section class="cuadro-naranja py-8 text-center">
       <h2 class="text-4xl font-semibold text-gray-900">¡Las Auténticas Tortas Josefo!</h2>
       <p class="mt-3 text-xl text-gray-800">Sabor que te conquistará. Las mejores de Cortazar y más allá.</p>
+      <p class="mx-auto mt-4 max-w-2xl text-gray-800">
+        Somos un puesto de tortas en Cortazar, Guanajuato. También hay hamburguesas y quesadillas. Ven al local o pide por teléfono.
+      </p>
     </section>
-    <p class="mx-auto max-w-2xl text-center text-gray-800">
-      Somos un puesto de tortas en Cortazar, Guanajuato. También hay hamburguesas y quesadillas. Ven al local o pide por teléfono.
-    </p>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-      <a href="menu.html" class="rounded-lg bg-orange-50 p-4 text-center">
-        <p class="font-semibold">Menú</p>
+      <a href="menu.html" class="tarjeta block text-center hover:shadow-md">
+        <img class="mb-3 h-32 w-full rounded-lg object-cover" src="image/torta-cubana.png" alt="Menú">
+        <p class="font-semibold text-orange-700">Menú</p>
         <p class="mt-1 text-sm text-gray-700">Tortas, hamburguesas y quesadillas.</p>
       </a>
-      <a href="sucursales.html" class="rounded-lg bg-orange-50 p-4 text-center">
-        <p class="font-semibold">Sucursal</p>
+      <a href="sucursales.html" class="tarjeta block text-center hover:shadow-md">
+        <img class="mb-3 h-32 w-full rounded-lg object-cover" src="image/sucursal.png" alt="Sucursal">
+        <p class="font-semibold text-orange-700">Sucursal</p>
         <p class="mt-1 text-sm text-gray-700">Antonio Madrazo y Colegio Militar.</p>
       </a>
-      <a href="promociones.html" class="rounded-lg bg-orange-50 p-4 text-center">
-        <p class="font-semibold">Promos</p>
+      <a href="promociones.html" class="tarjeta block text-center hover:shadow-md">
+        <img class="mb-3 h-32 w-full rounded-lg object-cover" src="image/promo-refresco.png" alt="Promos">
+        <p class="font-semibold text-orange-700">Promos</p>
         <p class="mt-1 text-sm text-gray-700">3 tortas = refresco, combo jamaica y más.</p>
       </a>
     </div>
-    <footer class="rounded-sm bg-orange-500 px-4 py-4 text-center text-sm text-white">
+    <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
-      <p>Antonio Madrazo y Colegio Militar · 55-1234-5678</p>
+      <p>Antonio Madrazo y Colegio Militar · 411 103 8297</p>
     </footer>
   </div>
 

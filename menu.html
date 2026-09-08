@@ -6,8 +6,10 @@
   <title>Menú | Tortas Josefo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="image/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="image/favicon.png" type="image/png">
 </head>
-<body class="bg-white font-sans">
+<body class="bg-orange-50 font-sans">
   <div class="max-w-6xl mx-auto px-4 py-6 space-y-5">
     <section class="relative overflow-hidden rounded-xl shadow-md min-h-[220px] md:min-h-[280px]">
       <img
@@ -28,9 +30,14 @@
           <p class="mt-2 text-sm">Sabor que te conquistará</p>
           <p class="mt-3 inline-block rounded bg-red-600 px-3 py-1 text-xs font-bold uppercase">Especialidad: la cubana</p>
         </div>
+        <img
+          src="image/banner-lado.png"
+          alt="Menú del puesto"
+          class="hidden h-36 w-full rounded-lg object-cover md:block md:h-48"
+        >
       </div>
     </section>
-    <nav class="rounded-sm bg-orange-500 text-white">
+    <nav class="rounded-xl bg-orange-500 text-white shadow-md">
       <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
         <a href="index.html" class="text-lg font-bold uppercase tracking-wide">Tortas Josefo</a>
         <div class="flex flex-wrap items-center gap-4 text-sm">
@@ -44,77 +51,107 @@
           <a href="historia.html" class="hover:underline">Historia</a>
           <a href="promociones.html" class="hover:underline">Promociones</a>
           <a href="preguntas.html" class="hover:underline">Preguntas</a>
+          <a href="galeria.html" class="hover:underline">Galería</a>
         </div>
       </div>
     </nav>
 
     <section class="py-8 text-center">
       <h1 class="text-4xl font-semibold">Menú</h1>
-      <p class="mt-3 text-xl text-gray-800">Tortas, hamburguesas y quesadillas.</p>
+      <p class="mt-3 text-xl text-gray-800">Tortas, hamburguesas, quesadillas, papas y aguas.</p>
     </section>
 
     <h2 class="text-2xl font-semibold">Tortas</h2>
     <p class="text-gray-700">Pan bolillo, aguacate, jitomate y salsa. $50. Con queso asadero: $60.</p>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
-      <figure class="text-center">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
+      <figure class="tarjeta text-center">
         <img class="aspect-square w-full rounded-lg object-cover" src="image/torta-milanesa.png" alt="Torta de milanesa">
         <figcaption class="mt-2 font-semibold">Milanesa</figcaption>
         <p class="mt-1 text-sm text-gray-700">Bistec empanizado, crujiente.</p>
-        <p class="mt-1 text-gray-800">$50</p>
+        <p class="mt-1 precio">$50</p>
         <p class="text-sm text-gray-600">$60 con queso asadero</p>
       </figure>
-      <figure class="text-center">
+      <figure class="tarjeta text-center">
         <img class="aspect-square w-full rounded-lg object-cover" src="image/torta-pierna.png" alt="Torta de pierna">
         <figcaption class="mt-2 font-semibold">Pierna</figcaption>
         <p class="mt-1 text-sm text-gray-700">Pierna de cerdo deshebrada.</p>
-        <p class="mt-1 text-gray-800">$50</p>
+        <p class="mt-1 precio">$50</p>
         <p class="text-sm text-gray-600">$60 con queso asadero</p>
       </figure>
-      <figure class="text-center">
+      <figure class="tarjeta text-center">
         <img class="aspect-square w-full rounded-lg object-cover" src="image/torta-cubana.png" alt="Torta cubana">
         <figcaption class="mt-2 font-semibold">Cubana</figcaption>
-        <p class="mt-1 text-sm text-gray-700">La especialidad, bien cargada. También hay de jamón al mismo precio.</p>
-        <p class="mt-1 text-gray-800">$50</p>
+        <p class="mt-1 text-sm text-gray-700">La especialidad, bien cargada.</p>
+        <p class="mt-1 precio">$50</p>
+        <p class="text-sm text-gray-600">$60 con queso asadero</p>
+      </figure>
+      <figure class="tarjeta text-center">
+        <img class="aspect-square w-full rounded-lg object-cover" src="image/torta-jamon.png" alt="Torta de jamón">
+        <figcaption class="mt-2 font-semibold">Jamón</figcaption>
+        <p class="mt-1 text-sm text-gray-700">Jamón, aguacate y jitomate.</p>
+        <p class="mt-1 precio">$50</p>
         <p class="text-sm text-gray-600">$60 con queso asadero</p>
       </figure>
     </div>
 
     <h2 class="text-2xl font-semibold">Hamburguesas</h2>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-      <figure class="text-center">
+      <figure class="tarjeta text-center">
         <img class="aspect-square w-full rounded-lg object-cover" src="image/hamburguesa.png" alt="Hamburguesa">
         <figcaption class="mt-2 font-semibold">Hamburguesa sencilla</figcaption>
         <p class="mt-1 text-sm text-gray-700">Carne, lechuga, jitomate y mayonesa.</p>
-        <p class="mt-1 text-gray-800">$55</p>
+        <p class="mt-1 precio">$55</p>
       </figure>
-      <figure class="text-center">
-        <img class="aspect-square w-full rounded-lg object-cover" src="image/hamburguesa.png" alt="Hamburguesa con queso">
+      <figure class="tarjeta text-center">
+        <img class="aspect-square w-full rounded-lg object-cover" src="image/hamburguesa-queso.png" alt="Hamburguesa con queso">
         <figcaption class="mt-2 font-semibold">Hamburguesa con queso</figcaption>
         <p class="mt-1 text-sm text-gray-700">La misma, con queso asadero.</p>
-        <p class="mt-1 text-gray-800">$65</p>
+        <p class="mt-1 precio">$65</p>
       </figure>
     </div>
 
     <h2 class="text-2xl font-semibold">Quesadillas</h2>
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
-      <figure class="text-center">
+      <figure class="tarjeta text-center">
         <img class="aspect-square w-full rounded-lg object-cover" src="image/quesadilla.png" alt="Quesadilla de queso">
         <figcaption class="mt-2 font-semibold">Quesadilla de queso</figcaption>
         <p class="mt-1 text-sm text-gray-700">Tortilla de maíz con queso derretido.</p>
-        <p class="mt-1 text-gray-800">$35</p>
+        <p class="mt-1 precio">$35</p>
       </figure>
-      <figure class="text-center">
+      <figure class="tarjeta text-center">
         <img class="aspect-square w-full rounded-lg object-cover" src="image/quesadilla.png" alt="Quesadilla de jamón">
         <figcaption class="mt-2 font-semibold">Quesadilla de jamón</figcaption>
         <p class="mt-1 text-sm text-gray-700">Queso y jamón. Sirve con salsa.</p>
-        <p class="mt-1 text-gray-800">$40</p>
+        <p class="mt-1 precio">$40</p>
+      </figure>
+    </div>
+
+    <h2 class="text-2xl font-semibold">Papas y aguas</h2>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+      <figure class="tarjeta text-center">
+        <img class="aspect-square w-full rounded-lg object-cover" src="image/papas.png" alt="Orden de papas">
+        <figcaption class="mt-2 font-semibold">Papas</figcaption>
+        <p class="mt-1 text-sm text-gray-700">Orden chica, para acompañar.</p>
+        <p class="mt-1 precio">$25</p>
+      </figure>
+      <figure class="tarjeta text-center">
+        <img class="aspect-square w-full rounded-lg object-cover" src="image/jamaica.png" alt="Agua de jamaica">
+        <figcaption class="mt-2 font-semibold">Jamaica</figcaption>
+        <p class="mt-1 text-sm text-gray-700">Vaso de agua de jamaica.</p>
+        <p class="mt-1 precio">$15</p>
+      </figure>
+      <figure class="tarjeta text-center">
+        <img class="aspect-square w-full rounded-lg object-cover" src="image/horchata.png" alt="Agua de horchata">
+        <figcaption class="mt-2 font-semibold">Horchata</figcaption>
+        <p class="mt-1 text-sm text-gray-700">Vaso de horchata.</p>
+        <p class="mt-1 precio">$15</p>
       </figure>
     </div>
 
     <p class="text-center text-gray-800">Pide en el puesto o en <a href="ordenar.html" class="text-orange-600 underline">Ordenar</a>.</p>
-    <footer class="rounded-sm bg-orange-500 px-4 py-4 text-center text-sm text-white">
+    <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
-      <p>Antonio Madrazo y Colegio Militar · 55-1234-5678</p>
+      <p>Antonio Madrazo y Colegio Militar · 411 103 8297</p>
     </footer>
   </div>
 </body>

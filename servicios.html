@@ -6,8 +6,10 @@
   <title>Servicios | Tortas Josefo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="image/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="image/favicon.png" type="image/png">
 </head>
-<body class="bg-white font-sans">
+<body class="bg-orange-50 font-sans">
   <div class="max-w-6xl mx-auto px-4 py-6 space-y-5">
     <section class="relative overflow-hidden rounded-xl shadow-md min-h-[220px] md:min-h-[280px]">
       <img
@@ -28,12 +30,17 @@
           <p class="mt-2 text-sm">Sabor que te conquistará</p>
           <p class="mt-3 inline-block rounded bg-red-600 px-3 py-1 text-xs font-bold uppercase">Especialidad: la cubana</p>
         </div>
+        <img
+          src="image/banner-lado.png"
+          alt="Menú del puesto"
+          class="hidden h-36 w-full rounded-lg object-cover md:block md:h-48"
+        >
       </div>
     </section>
-    <nav class="rounded-sm bg-orange-500 text-white">
-      <div class="flex items-center justify-between px-4 py-3">
+    <nav class="rounded-xl bg-orange-500 text-white shadow-md">
+      <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
         <a href="index.html" class="text-lg font-bold uppercase tracking-wide">Tortas Josefo</a>
-        <div class="hidden items-center gap-6 text-sm md:flex">
+        <div class="flex flex-wrap items-center gap-4 text-sm">
           <a href="index.html" class="font-bold">Home</a>
           <a href="menu.html" class="hover:underline">Menú</a>
           <a href="ordenar.html" class="hover:underline">Ordenar</a>
@@ -44,6 +51,7 @@
           <a href="historia.html" class="hover:underline">Historia</a>
           <a href="promociones.html" class="hover:underline">Promociones</a>
           <a href="preguntas.html" class="hover:underline">Preguntas</a>
+          <a href="galeria.html" class="hover:underline">Galería</a>
         </div>
       </div>
     </nav>
@@ -51,24 +59,24 @@
       <h1 class="text-4xl font-semibold">Servicios</h1>
       <p class="mt-3 text-xl text-gray-800">Para comer aquí, para llevar o para pedir por teléfono.</p>
     </section>
-    <img class="mx-auto h-56 w-full max-w-xl rounded-lg object-cover" src="image/servicios.png" alt="Servicio en el puesto">
+    <img class="mx-auto h-56 w-full max-w-xl rounded-xl object-cover shadow-md" src="image/servicios.png" alt="Servicio en el puesto">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-      <div class="rounded-lg bg-orange-50 p-4 text-center">
+      <div class="tarjeta text-center">
         <p class="font-semibold">Al momento</p>
         <p class="mt-2 text-sm text-gray-700">Milanesa, pierna, jamón y cubana. Se arma cuando pides.</p>
       </div>
-      <div class="rounded-lg bg-orange-50 p-4 text-center">
+      <div class="tarjeta text-center">
         <p class="font-semibold">Para llevar</p>
         <p class="mt-2 text-sm text-gray-700">Te la envolvemos para el camino o la oficina.</p>
       </div>
-      <div class="rounded-lg bg-orange-50 p-4 text-center">
+      <div class="tarjeta text-center">
         <p class="font-semibold">Por teléfono</p>
-        <p class="mt-2 text-sm text-gray-700">Llama al 55-1234-5678 y pasa a recoger.</p>
+        <p class="mt-2 text-sm text-gray-700">Llama al 411 103 8297 y pasa a recoger.</p>
       </div>
     </div>
-    <footer class="rounded-sm bg-orange-500 px-4 py-4 text-center text-sm text-white">
+    <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
-      <p>Antonio Madrazo y Colegio Militar · 55-1234-5678</p>
+      <p>Antonio Madrazo y Colegio Militar · 411 103 8297</p>
     </footer>
   </div>
 </body>

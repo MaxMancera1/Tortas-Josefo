@@ -6,8 +6,10 @@
   <title>Sucursales | Tortas Josefo</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="image/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="image/favicon.png" type="image/png">
 </head>
-<body class="bg-white font-sans">
+<body class="bg-orange-50 font-sans">
   <div class="max-w-6xl mx-auto px-4 py-6 space-y-5">
     <section class="relative overflow-hidden rounded-xl shadow-md min-h-[220px] md:min-h-[280px]">
       <img
@@ -28,12 +30,17 @@
           <p class="mt-2 text-sm">Sabor que te conquistará</p>
           <p class="mt-3 inline-block rounded bg-red-600 px-3 py-1 text-xs font-bold uppercase">Especialidad: la cubana</p>
         </div>
+        <img
+          src="image/banner-lado.png"
+          alt="Menú del puesto"
+          class="hidden h-36 w-full rounded-lg object-cover md:block md:h-48"
+        >
       </div>
     </section>
-    <nav class="rounded-sm bg-orange-500 text-white">
-      <div class="flex items-center justify-between px-4 py-3">
+    <nav class="rounded-xl bg-orange-500 text-white shadow-md">
+      <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
         <a href="index.html" class="text-lg font-bold uppercase tracking-wide">Tortas Josefo</a>
-        <div class="hidden items-center gap-6 text-sm md:flex">
+        <div class="flex flex-wrap items-center gap-4 text-sm">
           <a href="index.html" class="font-bold">Home</a>
           <a href="menu.html" class="hover:underline">Menú</a>
           <a href="ordenar.html" class="hover:underline">Ordenar</a>
@@ -44,6 +51,7 @@
           <a href="historia.html" class="hover:underline">Historia</a>
           <a href="promociones.html" class="hover:underline">Promociones</a>
           <a href="preguntas.html" class="hover:underline">Preguntas</a>
+          <a href="galeria.html" class="hover:underline">Galería</a>
         </div>
       </div>
     </nav>
@@ -52,22 +60,22 @@
       <p class="mt-3 text-xl text-gray-800">Estamos en Cortazar, Guanajuato.</p>
     </section>
     <div class="grid items-start gap-6 md:grid-cols-2">
-      <div>
+      <div class="tarjeta">
         <img class="mapa-sucursal w-full rounded-lg" src="image/mapa-cortazar.png" alt="Mapa de Tortas Josefo en Cortazar">
         <p class="mt-2 text-center text-sm text-gray-600">Ubicación en Google Maps.</p>
       </div>
-      <div>
+      <div class="tarjeta">
         <img class="h-56 w-full rounded-lg object-cover" src="image/sucursal.png" alt="El puesto de Tortas Josefo">
         <h2 class="mt-4 text-2xl font-semibold">¿Dónde estamos?</h2>
         <p class="mt-2 text-gray-800">Esquina de Antonio Madrazo y Colegio Militar, junto a Paseo de La Juventud.</p>
         <p class="mt-2 text-gray-800">Frente al Centro Cultural Cortazar y cerca del Auditorio Ecoparque. Si llegas por la carretera 45, sigue Antonio Madrazo hacia el centro: el puesto está en la esquina, con toldo naranja.</p>
         <p class="mt-3 text-gray-800"><span class="font-semibold">Horario:</span> 9:00 a.m. a 6:00 p.m.</p>
-        <p class="text-gray-800"><span class="font-semibold">Teléfono:</span> 55-1234-5678</p>
+        <p class="text-gray-800"><span class="font-semibold">Teléfono:</span> 411 103 8297</p>
       </div>
     </div>
-    <footer class="rounded-sm bg-orange-500 px-4 py-4 text-center text-sm text-white">
+    <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
-      <p>Antonio Madrazo y Colegio Militar · 55-1234-5678</p>
+      <p>Antonio Madrazo y Colegio Militar · 411 103 8297</p>
     </footer>
   </div>
 </body>
