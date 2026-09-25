@@ -1,0 +1,28 @@
+<h1 class="text-3xl font-semibold"><?php echo $accion == 'create' ? 'Nueva sucursal' : 'Editar sucursal'; ?></h1>
+
+<form class="cuadro-naranja mx-auto max-w-xl space-y-4" action="sucursal.php?accion=<?php echo $accion; isset($datos['id']) ? print '&id='.$datos['id'] : print '';?>" method="post">
+
+  <div>
+    <label class="font-semibold" for="nombre">Nombre</label>
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[nombre]" id="nombre" placeholder="Centro"
+      value="<?php isset($datos['nombre']) ? print htmlspecialchars($datos['nombre']) : print '';?>">
+  </div>
+
+  <div>
+    <label class="font-semibold" for="direccion">Dirección</label>
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[direccion]" id="direccion" placeholder="Calle, número y colonia"
+      value="<?php isset($datos['direccion']) ? print htmlspecialchars($datos['direccion']) : print '';?>">
+  </div>
+
+  <div>
+    <label class="font-semibold" for="telefono">Teléfono</label>
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[telefono]" id="telefono" placeholder="411 103 8297"
+      value="<?php isset($datos['telefono']) ? print htmlspecialchars($datos['telefono']) : print '';?>">
+  </div>
+
+  <div class="flex gap-3">
+    <input class="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white shadow hover:bg-green-700" type="submit" name="enviar" value="Guardar">
+    <a href="sucursal.php" class="rounded-lg bg-gray-200 px-4 py-2 font-semibold text-gray-800 hover:bg-gray-300">Cancelar</a>
+  </div>
+
+</form>

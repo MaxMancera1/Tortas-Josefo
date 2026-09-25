@@ -1,0 +1,32 @@
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <h1 class="text-3xl font-semibold">Sucursales</h1>
+  <a href="sucursal.php?accion=create" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Nueva sucursal</a>
+</div>
+
+<div class="tarjeta overflow-x-auto">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b-2 border-orange-300 text-orange-700">
+      <tr>
+        <th class="px-3 py-2">#</th>
+        <th class="px-3 py-2">Sucursal</th>
+        <th class="px-3 py-2">Dirección</th>
+        <th class="px-3 py-2">Teléfono</th>
+        <th class="px-3 py-2">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+<?php foreach($sucursales as $sucursal):?>
+      <tr class="border-b border-orange-100">
+        <th class="px-3 py-2"><?php echo $sucursal['id']; ?></th>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($sucursal['nombre']); ?></td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($sucursal['direccion']); ?></td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($sucursal['telefono']); ?></td>
+        <td class="px-3 py-2">
+          <a href="sucursal.php?accion=update&id=<?php echo $sucursal['id']; ?>" class="rounded bg-orange-500 px-3 py-1 text-white hover:bg-orange-600">Editar</a>
+          <a href="sucursal.php?accion=delete&id=<?php echo $sucursal['id']; ?>" onclick="return confirm('¿Eliminar esta sucursal?')" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
+        </td>
+      </tr>
+<?php endforeach;?>
+    </tbody>
+  </table>
+</div>

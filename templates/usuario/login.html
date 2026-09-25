@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar | Tortas Josefo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../image/favicon.svg" type="image/svg+xml">
+</head>
+<body class="bg-orange-50 font-sans">
+  <div class="mx-auto max-w-md px-4 py-16">
+    <form class="cuadro-naranja space-y-4" action="login.php" method="post">
+      <h1 class="titulo-banner text-center text-3xl font-black uppercase text-lime-400">Tortas Josefo</h1>
+      <p class="text-center text-gray-700">Acceso del dueño</p>
+
+      <?php if ($error): ?>
+        <p class="rounded bg-red-100 px-3 py-2 text-sm text-red-700"><?php echo $error; ?></p>
+      <?php endif; ?>
+
+      <div>
+        <label class="font-semibold" for="correo">Correo</label>
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="email" name="correo" id="correo">
+      </div>
+      <div>
+        <label class="font-semibold" for="password">Contraseña</label>
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="password" name="password" id="password">
+      </div>
+
+      <input class="w-full rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600" type="submit" name="enviar" value="Entrar">
+      <a href="../index.html" class="block text-center text-sm text-orange-700 underline">Volver al sitio</a>
+    </form>
+  </div>
+</body>
+</html>

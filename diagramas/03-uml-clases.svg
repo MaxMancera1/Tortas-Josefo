@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1100" height="680" fill="#ffffff"/>
+  <text x="550" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Figura 3. Diagrama UML de clases (logico)</text>
+  <text x="550" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Describe la estructura del sitio estatico; no hay clases de servidor</text>
+
+  <!-- PaginaHTML -->
+  <g>
+    <rect x="40" y="110" width="300" height="230" fill="#fff7ed" stroke="#111827" stroke-width="2"/>
+    <line x1="40" y1="150" x2="340" y2="150" stroke="#111827" stroke-width="2"/>
+    <line x1="40" y1="250" x2="340" y2="250" stroke="#111827"/>
+    <text x="190" y="138" text-anchor="middle" font-size="16" font-weight="700">PaginaHTML</text>
+    <text x="55" y="178" font-size="13">+ titulo: String</text>
+    <text x="55" y="200" font-size="13">+ banner: Imagen</text>
+    <text x="55" y="222" font-size="13">+ navegacion: Menu</text>
+    <text x="55" y="244" font-size="13">+ pie: Footer</text>
+    <text x="55" y="278" font-size="13">+ mostrar()</text>
+    <text x="55" y="300" font-size="13">+ enlazar(pagina)</text>
+  </g>
+
+  <!-- FormularioPedido -->
+  <g>
+    <rect x="400" y="110" width="300" height="280" fill="#ffedd5" stroke="#111827" stroke-width="2"/>
+    <line x1="400" y1="150" x2="700" y2="150" stroke="#111827" stroke-width="2"/>
+    <line x1="400" y1="268" x2="700" y2="268" stroke="#111827"/>
+    <text x="550" y="138" text-anchor="middle" font-size="16" font-weight="700">FormularioPedido</text>
+    <text x="415" y="178" font-size="13">+ nombre: String</text>
+    <text x="415" y="200" font-size="13">+ producto: String</text>
+    <text x="415" y="222" font-size="13">+ entrega: String</text>
+    <text x="415" y="244" font-size="13">+ direccion: String</text>
+    <text x="415" y="266" font-size="13">+ pago: String</text>
+    <text x="415" y="296" font-size="13">+ validar()</text>
+    <text x="415" y="318" font-size="13">+ enviarGET(gracias.html)</text>
+  </g>
+
+  <!-- Producto -->
+  <g>
+    <rect x="760" y="110" width="300" height="210" fill="#fff7ed" stroke="#111827" stroke-width="2"/>
+    <line x1="760" y1="150" x2="1060" y2="150" stroke="#111827" stroke-width="2"/>
+    <line x1="760" y1="250" x2="1060" y2="250" stroke="#111827"/>
+    <text x="910" y="138" text-anchor="middle" font-size="16" font-weight="700">ProductoMenu</text>
+    <text x="775" y="178" font-size="13">+ nombre: String</text>
+    <text x="775" y="200" font-size="13">+ precio: Number</text>
+    <text x="775" y="222" font-size="13">+ extraQueso: Number</text>
+    <text x="775" y="244" font-size="13">+ imagen: String</text>
+    <text x="775" y="278" font-size="13">+ mostrarTarjeta()</text>
+  </g>
+
+  <!-- Carrusel -->
+  <g>
+    <rect x="220" y="460" width="300" height="170" fill="#fff7ed" stroke="#111827" stroke-width="2"/>
+    <line x1="220" y1="500" x2="520" y2="500" stroke="#111827" stroke-width="2"/>
+    <line x1="220" y1="560" x2="520" y2="560" stroke="#111827"/>
+    <text x="370" y="488" text-anchor="middle" font-size="16" font-weight="700">Carrusel</text>
+    <text x="235" y="528" font-size="13">+ slides: Imagen[]</text>
+    <text x="235" y="550" font-size="13">+ indice: Number</text>
+    <text x="235" y="588" font-size="13">+ siguiente()</text>
+  </g>
+
+  <!-- inheritance Formulario is a Pagina -->
+  <line x1="340" y1="180" x2="400" y2="180" stroke="#111827" stroke-width="2"/>
+  <polygon points="340,180 355,172 355,188" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+  <text x="370" y="168" font-size="12">hereda</text>
+
+  <!-- association pagina contains productos (por arriba, sin cruzar el formulario) -->
+  <polyline points="190,110 190,88 910,88 910,110" fill="none" stroke="#111827" stroke-width="1.5"/>
+  <text x="550" y="82" text-anchor="middle" font-size="12">1 muestra 1..*</text>
+
+  <!-- index has carrusel -->
+  <line x1="190" y1="340" x2="370" y2="460" stroke="#111827" stroke-width="1.5"/>
+  <text x="250" y="420" font-size="12">1 contiene 0..1</text>
+</svg>

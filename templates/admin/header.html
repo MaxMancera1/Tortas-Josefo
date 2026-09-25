@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Tortas Josefo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../image/favicon.svg" type="image/svg+xml">
+</head>
+<body class="bg-orange-50 font-sans">
+  <div class="max-w-6xl mx-auto px-4 py-6 space-y-5">
+    <nav class="rounded-xl bg-orange-500 text-white shadow-md">
+      <div class="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+        <a href="index.php" class="text-lg font-bold uppercase tracking-wide">Tortas Josefo · Admin</a>
+        <div class="flex flex-wrap items-center gap-4 text-sm">
+          <a href="index.php" class="hover:underline">Inicio</a>
+          <a href="proveedor.php" class="hover:underline">Proveedores</a>
+          <a href="producto.php" class="hover:underline">Productos</a>
+          <a href="sucursal.php" class="hover:underline">Sucursales</a>
+          <a href="../index.html" class="hover:underline">Ver sitio</a>
+          <span class="font-semibold"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+          <a href="login.php?accion=logout" class="rounded bg-white/20 px-3 py-1 hover:bg-white/30">Salir</a>
+        </div>
+      </div>
+    </nav>

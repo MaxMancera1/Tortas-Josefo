@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1100" height="720" fill="#fff7ed"/>
+  <text x="550" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Figura 6. Maquetacion / boceto de layout (todas las paginas)</text>
+
+  <!-- page frame -->
+  <rect x="80" y="60" width="940" height="630" fill="#ffffff" stroke="#fb923c" stroke-width="3" rx="12"/>
+
+  <!-- banner -->
+  <rect x="100" y="80" width="900" height="150" fill="#fed7aa" stroke="#c2410c" stroke-width="2" rx="8"/>
+  <rect x="120" y="98" width="220" height="114" fill="#fdba74" stroke="#9a3412" rx="6"/>
+  <text x="230" y="162" text-anchor="middle" font-size="13">Foto torta</text>
+  <text x="550" y="130" text-anchor="middle" font-size="22" font-weight="800" fill="#84cc16">TORTAS JOSEFO</text>
+  <text x="550" y="158" text-anchor="middle" font-size="13" fill="#7f1d1d">Sabor que te conquistara</text>
+  <rect x="760" y="98" width="220" height="114" fill="#fdba74" stroke="#9a3412" rx="6"/>
+  <text x="870" y="162" text-anchor="middle" font-size="13">Foto menu</text>
+  <text x="550" y="250" text-anchor="middle" font-size="12" fill="#9a3412">1. BANNER (3 columnas)</text>
+
+  <!-- nav -->
+  <rect x="100" y="250" width="900" height="50" fill="#f97316" rx="8"/>
+  <text x="180" y="280" font-size="13" font-weight="700" fill="#ffffff">Tortas Josefo</text>
+  <text x="620" y="280" text-anchor="middle" font-size="12" fill="#ffffff">Home  Menu  Ordenar  Sucursales  Nosotros  Mision  ...</text>
+  <text x="550" y="322" text-anchor="middle" font-size="12" fill="#9a3412">2. NAVEGACION naranja</text>
+
+  <!-- content -->
+  <rect x="100" y="335" width="900" height="250" fill="#fff7ed" stroke="#fb923c" stroke-width="2" rx="8"/>
+  <text x="550" y="365" text-anchor="middle" font-size="16" font-weight="700">3. CONTENIDO</text>
+  <rect x="130" y="385" width="250" height="160" fill="#ffffff" stroke="#fed7aa" rx="8"/>
+  <rect x="145" y="400" width="220" height="80" fill="#e5e7eb"/>
+  <text x="255" y="515" text-anchor="middle" font-size="13">Tarjeta / seccion</text>
+  <rect x="425" y="385" width="250" height="160" fill="#ffffff" stroke="#fed7aa" rx="8"/>
+  <rect x="440" y="400" width="220" height="80" fill="#e5e7eb"/>
+  <text x="550" y="515" text-anchor="middle" font-size="13">Tarjeta / seccion</text>
+  <rect x="720" y="385" width="250" height="160" fill="#ffffff" stroke="#fed7aa" rx="8"/>
+  <rect x="735" y="400" width="220" height="80" fill="#e5e7eb"/>
+  <text x="845" y="515" text-anchor="middle" font-size="13">Tarjeta / seccion</text>
+
+  <!-- footer -->
+  <rect x="100" y="605" width="900" height="60" fill="#ea580c" rx="8"/>
+  <text x="550" y="632" text-anchor="middle" font-size="14" fill="#ffffff" font-weight="700">4. PIE: Tortas Josefo - Cortazar, Gto.</text>
+  <text x="550" y="652" text-anchor="middle" font-size="12" fill="#ffedd5">Antonio Madrazo y Colegio Militar - 411 103 8297</text>
+</svg>

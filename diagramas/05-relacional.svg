@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1100" height="620" fill="#ffffff"/>
+  <text x="550" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Figura 5. Diagrama relacional (propuesta)</text>
+  <text x="550" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Tablas logicas. El sitio actual no las crea ni las consulta</text>
+
+  <!-- CLIENTE -->
+  <g>
+    <rect x="40" y="110" width="280" height="36" fill="#1e3a8a"/>
+    <text x="180" y="134" text-anchor="middle" font-size="16" fill="#ffffff" font-weight="700">CLIENTE</text>
+    <rect x="40" y="146" width="280" height="150" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2"/>
+    <text x="55" y="175" font-size="14" font-weight="700">PK  id_cliente</text>
+    <line x1="50" y1="185" x2="200" y2="185" stroke="#111827"/>
+    <text x="55" y="215" font-size="14">nombre</text>
+    <text x="55" y="245" font-size="14">telefono</text>
+    <text x="55" y="275" font-size="14">direccion</text>
+  </g>
+
+  <!-- PRODUCTO -->
+  <g>
+    <rect x="780" y="110" width="280" height="36" fill="#1e3a8a"/>
+    <text x="920" y="134" text-anchor="middle" font-size="16" fill="#ffffff" font-weight="700">PRODUCTO</text>
+    <rect x="780" y="146" width="280" height="150" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2"/>
+    <text x="795" y="175" font-size="14" font-weight="700">PK  id_producto</text>
+    <line x1="790" y1="185" x2="980" y2="185" stroke="#111827"/>
+    <text x="795" y="215" font-size="14">nombre</text>
+    <text x="795" y="245" font-size="14">precio</text>
+    <text x="795" y="275" font-size="14">categoria</text>
+  </g>
+
+  <!-- PEDIDO -->
+  <g>
+    <rect x="410" y="360" width="280" height="36" fill="#9a3412"/>
+    <text x="550" y="384" text-anchor="middle" font-size="16" fill="#ffffff" font-weight="700">PEDIDO</text>
+    <rect x="410" y="396" width="280" height="180" fill="#fff7ed" stroke="#9a3412" stroke-width="2"/>
+    <text x="425" y="425" font-size="14" font-weight="700">PK  id_pedido</text>
+    <line x1="420" y1="435" x2="620" y2="435" stroke="#111827"/>
+    <text x="425" y="460" font-size="14">FK  id_cliente</text>
+    <text x="425" y="488" font-size="14">FK  id_producto</text>
+    <text x="425" y="516" font-size="14">entrega</text>
+    <text x="425" y="544" font-size="14">pago</text>
+    <text x="425" y="562" font-size="13" fill="#6b7280">recoger | domicilio / efectivo | transfer</text>
+  </g>
+
+  <!-- FK lines -->
+  <path d="M180 296 C180 340, 180 360, 410 430" fill="none" stroke="#111827" stroke-width="2"/>
+  <polygon points="410,430 398,422 398,438" fill="#111827"/>
+  <text x="210" y="350" font-size="13" font-weight="700">1 : N</text>
+
+  <path d="M920 296 C920 340, 920 360, 690 430" fill="none" stroke="#111827" stroke-width="2"/>
+  <polygon points="690,430 702,422 702,438" fill="#111827"/>
+  <text x="800" y="350" font-size="13" font-weight="700">1 : N</text>
+</svg>

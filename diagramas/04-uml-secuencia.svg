@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1100" height="640" fill="#ffffff"/>
+  <text x="550" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Figura 4. Diagrama UML de secuencia - Pedido de practica</text>
+
+  <!-- lifeline heads -->
+  <rect x="70" y="80" width="160" height="44" fill="#e0e7ff" stroke="#111827" stroke-width="2"/>
+  <text x="150" y="108" text-anchor="middle" font-size="14" font-weight="700">Visitante</text>
+  <rect x="350" y="80" width="180" height="44" fill="#ffedd5" stroke="#111827" stroke-width="2"/>
+  <text x="440" y="108" text-anchor="middle" font-size="14" font-weight="700">ordenar.html</text>
+  <rect x="650" y="80" width="180" height="44" fill="#ffedd5" stroke="#111827" stroke-width="2"/>
+  <text x="740" y="108" text-anchor="middle" font-size="14" font-weight="700">gracias.html</text>
+  <rect x="920" y="80" width="140" height="44" fill="#d1fae5" stroke="#111827" stroke-width="2"/>
+  <text x="990" y="108" text-anchor="middle" font-size="14" font-weight="700">Navegador</text>
+
+  <!-- lifelines -->
+  <line x1="150" y1="124" x2="150" y2="580" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="440" y1="124" x2="440" y2="580" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="740" y1="124" x2="740" y2="580" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="990" y1="124" x2="990" y2="580" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- activations -->
+  <rect x="142" y="180" width="16" height="340" fill="#c7d2fe" stroke="#111827"/>
+  <rect x="432" y="200" width="16" height="200" fill="#fed7aa" stroke="#111827"/>
+  <rect x="732" y="360" width="16" height="140" fill="#fed7aa" stroke="#111827"/>
+
+  <!-- messages -->
+  <line x1="158" y1="210" x2="432" y2="210" stroke="#111827" stroke-width="2" marker-end="url(#arrow)"/>
+  <polygon points="432,210 418,204 418,216" fill="#111827"/>
+  <text x="295" y="200" text-anchor="middle" font-size="13">1. Abre Ordenar</text>
+
+  <line x1="158" y1="270" x2="432" y2="270" stroke="#111827" stroke-width="2"/>
+  <polygon points="432,270 418,264 418,276" fill="#111827"/>
+  <text x="295" y="260" text-anchor="middle" font-size="13">2. Llena el formulario</text>
+  <text x="295" y="292" text-anchor="middle" font-size="11" fill="#4b5563">nombre, producto, entrega, pago</text>
+
+  <line x1="158" y1="340" x2="432" y2="340" stroke="#111827" stroke-width="2"/>
+  <polygon points="432,340 418,334 418,346" fill="#111827"/>
+  <text x="295" y="330" text-anchor="middle" font-size="13">3. Enviar pedido (submit)</text>
+
+  <line x1="448" y1="400" x2="732" y2="400" stroke="#111827" stroke-width="2"/>
+  <polygon points="732,400 718,394 718,406" fill="#111827"/>
+  <text x="590" y="388" text-anchor="middle" font-size="13">4. GET gracias.html?nombre=...</text>
+
+  <line x1="748" y1="460" x2="990" y2="460" stroke="#111827" stroke-width="2"/>
+  <polygon points="990,460 976,454 976,466" fill="#111827"/>
+  <text x="870" y="448" text-anchor="middle" font-size="13">5. Muestra confirmacion</text>
+
+  <line x1="740" y1="520" x2="166" y2="520" stroke="#111827" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <polygon points="166,520 180,514 180,526" fill="#111827"/>
+  <text x="430" y="510" text-anchor="middle" font-size="13">6. Pedido anotado (sin cobro en linea)</text>
+
+  <text x="550" y="615" text-anchor="middle" font-size="12" fill="#6b7280">Metodo GET. Los datos viajan en la URL; no hay base de datos ni pago real.</text>
+</svg>

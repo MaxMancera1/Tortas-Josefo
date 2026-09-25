@@ -1,0 +1,32 @@
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <h1 class="text-3xl font-semibold">Productos</h1>
+  <a href="producto.php?accion=create" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Nuevo producto</a>
+</div>
+
+<div class="tarjeta overflow-x-auto">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b-2 border-orange-300 text-orange-700">
+      <tr>
+        <th class="px-3 py-2">#</th>
+        <th class="px-3 py-2">Producto</th>
+        <th class="px-3 py-2">Categoría</th>
+        <th class="px-3 py-2">Precio</th>
+        <th class="px-3 py-2">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+<?php foreach($productos as $producto):?>
+      <tr class="border-b border-orange-100">
+        <th class="px-3 py-2"><?php echo $producto['id']; ?></th>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($producto['nombre']); ?></td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($producto['categoria']); ?></td>
+        <td class="px-3 py-2 precio">$<?php echo htmlspecialchars($producto['precio']); ?></td>
+        <td class="px-3 py-2">
+          <a href="producto.php?accion=update&id=<?php echo $producto['id']; ?>" class="rounded bg-orange-500 px-3 py-1 text-white hover:bg-orange-600">Editar</a>
+          <a href="producto.php?accion=delete&id=<?php echo $producto['id']; ?>" onclick="return confirm('¿Eliminar este producto?')" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
+        </td>
+      </tr>
+<?php endforeach;?>
+    </tbody>
+  </table>
+</div>

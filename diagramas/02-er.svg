@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" font-family="Arial, Helvetica, sans-serif">
+  <rect width="1100" height="620" fill="#ffffff"/>
+  <text x="550" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Figura 2. Diagrama entidad-relacion (propuesta)</text>
+  <text x="550" y="68" text-anchor="middle" font-size="13" fill="#6b7280">No implementado: el sitio es estatico y no usa base de datos</text>
+
+  <!-- CLIENTE entity -->
+  <rect x="40" y="140" width="220" height="70" fill="#dbeafe" stroke="#1e3a8a" stroke-width="2"/>
+  <text x="150" y="182" text-anchor="middle" font-size="20" font-weight="700" fill="#1e3a8a">CLIENTE</text>
+
+  <!-- attributes cliente -->
+  <ellipse cx="80" cy="300" rx="70" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="80" y="305" text-anchor="middle" font-size="12">id_cliente</text>
+  <ellipse cx="80" cy="300" rx="64" ry="22" fill="none" stroke="#1e3a8a" stroke-width="1"/>
+  <ellipse cx="150" cy="370" rx="70" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="150" y="375" text-anchor="middle" font-size="12">nombre</text>
+  <ellipse cx="230" cy="300" rx="70" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="230" y="305" text-anchor="middle" font-size="12">direccion</text>
+  <line x1="150" y1="210" x2="80" y2="272" stroke="#1e3a8a"/>
+  <line x1="150" y1="210" x2="150" y2="342" stroke="#1e3a8a"/>
+  <line x1="150" y1="210" x2="230" y2="272" stroke="#1e3a8a"/>
+
+  <!-- PEDIDO entity -->
+  <rect x="440" y="140" width="220" height="70" fill="#dbeafe" stroke="#1e3a8a" stroke-width="2"/>
+  <text x="550" y="182" text-anchor="middle" font-size="20" font-weight="700" fill="#1e3a8a">PEDIDO</text>
+  <ellipse cx="430" cy="300" rx="70" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="430" y="305" text-anchor="middle" font-size="12">id_pedido</text>
+  <ellipse cx="430" cy="300" rx="64" ry="22" fill="none" stroke="#1e3a8a" stroke-width="1"/>
+  <ellipse cx="550" cy="370" rx="70" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="550" y="375" text-anchor="middle" font-size="12">entrega</text>
+  <ellipse cx="670" cy="300" rx="62" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="670" y="305" text-anchor="middle" font-size="12">pago</text>
+  <line x1="550" y1="210" x2="430" y2="272" stroke="#1e3a8a"/>
+  <line x1="550" y1="210" x2="550" y2="342" stroke="#1e3a8a"/>
+  <line x1="550" y1="210" x2="670" y2="272" stroke="#1e3a8a"/>
+
+  <!-- PRODUCTO entity -->
+  <rect x="840" y="140" width="220" height="70" fill="#dbeafe" stroke="#1e3a8a" stroke-width="2"/>
+  <text x="950" y="182" text-anchor="middle" font-size="20" font-weight="700" fill="#1e3a8a">PRODUCTO</text>
+  <ellipse cx="860" cy="300" rx="70" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="860" y="305" text-anchor="middle" font-size="12">id_producto</text>
+  <ellipse cx="860" cy="300" rx="64" ry="22" fill="none" stroke="#1e3a8a" stroke-width="1"/>
+  <ellipse cx="950" cy="370" rx="70" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="950" y="375" text-anchor="middle" font-size="12">nombre</text>
+  <ellipse cx="1040" cy="300" rx="55" ry="28" fill="#eff6ff" stroke="#1e3a8a" stroke-width="1.5"/>
+  <text x="1040" y="305" text-anchor="middle" font-size="12">precio</text>
+  <line x1="950" y1="210" x2="860" y2="272" stroke="#1e3a8a"/>
+  <line x1="950" y1="210" x2="950" y2="342" stroke="#1e3a8a"/>
+  <line x1="950" y1="210" x2="1040" y2="272" stroke="#1e3a8a"/>
+
+  <!-- Relationships diamonds -->
+  <polygon points="340,175 385,210 340,245 295,210" fill="#fef3c7" stroke="#92400e" stroke-width="2"/>
+  <text x="340" y="214" text-anchor="middle" font-size="11" font-weight="700">realiza</text>
+  <line x1="260" y1="175" x2="295" y2="210" stroke="#111827" stroke-width="2"/>
+  <line x1="385" y1="210" x2="440" y2="175" stroke="#111827" stroke-width="2"/>
+  <text x="268" y="155" font-size="14" font-weight="700">1</text>
+  <text x="410" y="155" font-size="14" font-weight="700">N</text>
+
+  <polygon points="760,175 805,210 760,245 715,210" fill="#fef3c7" stroke="#92400e" stroke-width="2"/>
+  <text x="760" y="214" text-anchor="middle" font-size="11" font-weight="700">incluye</text>
+  <line x1="660" y1="175" x2="715" y2="210" stroke="#111827" stroke-width="2"/>
+  <line x1="805" y1="210" x2="840" y2="175" stroke="#111827" stroke-width="2"/>
+  <text x="680" y="155" font-size="14" font-weight="700">N</text>
+  <text x="820" y="155" font-size="14" font-weight="700">1</text>
+
+  <text x="550" y="470" text-anchor="middle" font-size="14">Cardinalidad: un cliente realiza muchos pedidos; un pedido incluye un producto (formulario actual).</text>
+  <text x="550" y="500" text-anchor="middle" font-size="14">Atributos del pedido en la practica: entrega (recoger / domicilio) y pago (efectivo / transferencia).</text>
+  <text x="550" y="560" text-anchor="middle" font-size="13" fill="#6b7280">Modelo Chen. Elipse doble = llave primaria.</text>
+</svg>

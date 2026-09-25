@@ -1,0 +1,25 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8081:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:11
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: tortas
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "63307:3306"
+    volumes:
+      - tortas_data:/var/lib/mysql
+      - ./init-mariadb.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  tortas_data:
