@@ -23,7 +23,7 @@
         <td class="px-3 py-2 precio">$<?php echo htmlspecialchars($producto['precio']); ?></td>
         <td class="px-3 py-2">
           <a href="producto.php?accion=update&id=<?php echo $producto['id']; ?>" class="rounded bg-orange-500 px-3 py-1 text-white hover:bg-orange-600">Editar</a>
-          <a href="producto.php?accion=delete&id=<?php echo $producto['id']; ?>" onclick="return confirm('¿Eliminar este producto?')" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
+          <a href="producto.php?accion=delete&id=<?php echo $producto['id']; ?>" data-confirm="¿Eliminar este producto?" data-nombre="<?php echo htmlspecialchars($producto['nombre']); ?>" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
         </td>
       </tr>
 <?php endforeach;?>

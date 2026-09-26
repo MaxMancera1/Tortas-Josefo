@@ -23,7 +23,7 @@
         <td class="px-3 py-2"><?php echo htmlspecialchars($sucursal['telefono']); ?></td>
         <td class="px-3 py-2">
           <a href="sucursal.php?accion=update&id=<?php echo $sucursal['id']; ?>" class="rounded bg-orange-500 px-3 py-1 text-white hover:bg-orange-600">Editar</a>
-          <a href="sucursal.php?accion=delete&id=<?php echo $sucursal['id']; ?>" onclick="return confirm('¿Eliminar esta sucursal?')" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
+          <a href="sucursal.php?accion=delete&id=<?php echo $sucursal['id']; ?>" data-confirm="¿Eliminar esta sucursal?" data-nombre="<?php echo htmlspecialchars($sucursal['nombre']); ?>" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
         </td>
       </tr>
 <?php endforeach;?>
