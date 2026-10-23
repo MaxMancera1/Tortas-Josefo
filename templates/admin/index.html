@@ -10,3 +10,195 @@
   <p class="mt-4 text-sm text-gray-600">Tu usuario todavía no tiene roles. Pídele al dueño que te asigne uno.</p>
   <?php endif; ?>
 </section>
+
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .dash {
+    --naranja:#EA580C; --naranja-oscuro:#9A3412; --tinta:#431407; --suave:#9A3412;
+    --lima:#A3E635; --linea:#FED7AA; --fondo:#FFF7ED;
+    font-family:'Figtree',system-ui,sans-serif; color:var(--tinta);
+    background:var(--fondo); border-radius:28px; padding:2rem;
+  }
+  .dash-titulo { margin:0 0 1.75rem; }
+  .dash-titulo h2 { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(1.7rem,3.2vw,2.4rem); letter-spacing:-.02em; margin:0; }
+  .dash-titulo p { margin:.35rem 0 0; color:var(--suave); max-width:60ch; }
+  .dash-hero {
+    position:relative; overflow:hidden; height:100%;
+    background:linear-gradient(160deg,var(--naranja) 0%,var(--naranja-oscuro) 100%);
+    color:#fff; border-radius:28px 28px 28px 8px; padding:2rem 1.75rem 1.75rem;
+  }
+  .dash-hero::after {
+    content:""; position:absolute; right:-90px; top:-90px; width:260px; height:260px; border-radius:50%;
+    box-shadow:0 0 0 38px rgba(255,255,255,.08), 0 0 0 78px rgba(255,255,255,.05);
+    pointer-events:none;
+  }
+  .dash-hero > * { position:relative; z-index:1; }
+  .dash-hero .lbl { font-size:1rem; color:#FFEDD5; margin:0; }
+  .dash-numero { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(4.2rem,9vw,6.5rem); line-height:.95; letter-spacing:-.04em; margin:.35rem 0 .5rem; }
+  .dash-hero .det { color:#FFEDD5; margin:0 0 1.25rem; }
+  .dash-hero .det b { color:#fff; font-weight:600; }
+  .dash-dona { position:relative; height:190px; margin:0 auto 1rem; }
+  .dash-leyenda { list-style:none; margin:0; padding:0; font-size:.9rem; }
+  .dash-leyenda li { display:flex; align-items:center; gap:.6rem; padding:.28rem 0; }
+  .dash-leyenda i { width:10px; height:10px; border-radius:50%; flex:none; }
+  .dash-leyenda .n { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .dash-leyenda .v { font-weight:600; }
+  .dash-barras { background:#fff; border-radius:8px 28px 28px 28px; padding:1.75rem 1.75rem 1.25rem; height:100%; border:1px solid var(--linea); }
+  .dash-barras h3 { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.3rem; letter-spacing:-.01em; margin:0 0 .2rem; }
+  .dash-barras > p { color:var(--suave); font-size:.92rem; margin:0 0 1.1rem; }
+  .dash-lienzo { position:relative; width:100%; }
+  .dash-lectura { display:grid; grid-template-columns:repeat(3,1fr); margin-top:1.5rem; }
+  .dash-lectura > div { padding:.25rem 1.5rem; border-left:3px solid var(--naranja); }
+  .dash-lectura > div:nth-child(2) { border-left-color:var(--lima); }
+  .dash-lectura > div:nth-child(3) { border-left-color:#FDBA74; }
+  .dash-lectura strong { display:block; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:2rem; line-height:1.15; }
+  .dash-lectura span { color:var(--suave); font-size:.92rem; }
+  @media (max-width:767px) {
+    .dash { padding:1.1rem; border-radius:20px; }
+    .dash-lectura { grid-template-columns:1fr; gap:1rem; }
+    .dash-lectura > div { padding-left:1rem; }
+  }
+</style>
+
+<div class="dash">
+  <div class="dash-titulo">
+    <h2>Dashboard del menú</h2>
+    <p>Así está armado el menú de Tortas Josefo: cuántos productos hay por categoría y cuánto cuesta cada uno.</p>
+  </div>
+
+  <div class="grid gap-4 lg:grid-cols-12 lg:items-stretch">
+    <div class="lg:col-span-4">
+      <div class="dash-hero">
+        <p class="lbl">Productos en el menú</p>
+        <div class="dash-numero" id="dash_total" data-valor="<?php echo (int)$total; ?>">0</div>
+        <p class="det">en <b><?php echo (int)$nCat; ?></b> categorías</p>
+        <div class="dash-dona"><canvas id="dash_dona"></canvas></div>
+        <ul class="dash-leyenda">
+          <?php foreach ($categorias as $i => $d): ?>
+          <li>
+            <i style="background:<?php echo $coloresDona[$i % count($coloresDona)]; ?>"></i>
+            <span class="n"><?php echo htmlspecialchars($d[0]); ?></span>
+            <span class="v"><?php echo $total ? round($d[1] * 100 / $total) : 0; ?>%</span>
+          </li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lg:col-span-8">
+      <div class="dash-barras">
+        <h3>Precio del menú</h3>
+        <p>De mayor a menor. El más caro va en lima.</p>
+        <div class="dash-lienzo" id="dash_caja"><canvas id="dash_barras"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-lectura">
+    <div>
+      <strong>$<?php echo (int)$promedio; ?></strong>
+      <span>precio promedio del menú</span>
+    </div>
+    <div>
+      <strong><?php echo $pctLider; ?>%</strong>
+      <span>del menú es <?php echo htmlspecialchars($liderCat[0]); ?></span>
+    </div>
+    <div>
+      <strong>$<?php echo (int)$caro[1]; ?></strong>
+      <span>el más caro: <?php echo htmlspecialchars($caro[0]); ?></span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(function () {
+  const categorias = <?php echo json_encode($categorias, JSON_UNESCAPED_UNICODE); ?>;
+  const precios = <?php echo json_encode($precios, JSON_UNESCAPED_UNICODE); ?>;
+  const coloresDona = <?php echo json_encode($coloresDona); ?>;
+  const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const elTotal = document.getElementById('dash_total');
+  const meta = parseInt(elTotal.dataset.valor, 10) || 0;
+  if (reducir || meta === 0) {
+    elTotal.textContent = meta;
+  } else {
+    const t0 = performance.now(), dur = 1100;
+    (function paso(t) {
+      const p = Math.min((t - t0) / dur, 1);
+      elTotal.textContent = Math.round(meta * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(paso);
+    })(t0);
+  }
+
+  Chart.defaults.font.family = 'Figtree, sans-serif';
+  if (reducir) Chart.defaults.animation = false;
+
+  if (categorias.length) {
+    new Chart(document.getElementById('dash_dona'), {
+      type: 'doughnut',
+      data: {
+        labels: categorias.map(d => d[0]),
+        datasets: [{
+          data: categorias.map(d => d[1]),
+          backgroundColor: coloresDona,
+          borderColor: '#9A3412',
+          borderWidth: 3,
+          hoverOffset: 6
+        }]
+      },
+      options: { maintainAspectRatio: false, cutout: '66%', plugins: { legend: { display: false } } }
+    });
+  }
+
+  if (!precios.length) {
+    document.getElementById('dash_caja').textContent = 'Aún no hay productos en el menú.';
+    return;
+  }
+
+  const valores = {
+    id: 'valores',
+    afterDatasetsDraw(chart) {
+      const c = chart.ctx; c.save();
+      c.font = '600 13px Figtree, sans-serif'; c.fillStyle = '#431407'; c.textBaseline = 'middle';
+      chart.getDatasetMeta(0).data.forEach((b, i) => c.fillText('$' + chart.data.datasets[0].data[i], b.x + 9, b.y));
+      c.restore();
+    }
+  };
+
+  document.getElementById('dash_caja').style.height = Math.max(320, precios.length * 44 + 40) + 'px';
+  new Chart(document.getElementById('dash_barras'), {
+    type: 'bar',
+    data: {
+      labels: precios.map(f => f[0]),
+      datasets: [{
+        label: 'Precio',
+        data: precios.map(f => f[1]),
+        backgroundColor: ctx => {
+          const area = ctx.chart.chartArea;
+          if (!area) return '#EA580C';
+          if (ctx.dataIndex === 0) return '#A3E635';
+          const g = ctx.chart.ctx.createLinearGradient(area.left, 0, area.right, 0);
+          g.addColorStop(0, '#9A3412');
+          g.addColorStop(1, '#FB923C');
+          return g;
+        },
+        borderRadius: 10,
+        borderSkipped: false,
+        barPercentage: 0.7
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      maintainAspectRatio: false,
+      layout: { padding: { right: 48 } },
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { beginAtZero: true, ticks: { precision: 0, color: '#9A3412', callback: v => '$' + v }, grid: { color: '#FFEDD5' }, border: { display: false } },
+        y: { grid: { display: false }, border: { display: false }, ticks: { color: '#431407', font: { size: 13 } } }
+      }
+    },
+    plugins: [valores]
+  });
+})();
+</script>

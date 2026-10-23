@@ -59,6 +59,17 @@ class Producto extends Sistema {
         $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $datos;
     }
+    function getProductosCategoria(){
+        $sql = "SELECT categoria, COUNT(*) AS cantidad
+                FROM productos
+                GROUP BY categoria
+                ORDER BY cantidad DESC";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function getProductosPrecios(){
+        $sql = "SELECT nombre, precio FROM productos ORDER BY precio DESC, nombre";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
     function update($id, $data){
         $afectados = 0;
         if (is_numeric($id)){
