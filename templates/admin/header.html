@@ -15,9 +15,20 @@
         <a href="index.php" class="text-lg font-bold uppercase tracking-wide">Tortas Josefo · Admin</a>
         <div class="flex flex-wrap items-center gap-4 text-sm">
           <a href="index.php" class="hover:underline">Inicio</a>
-          <a href="proveedor.php" class="hover:underline">Proveedores</a>
-          <a href="producto.php" class="hover:underline">Productos</a>
-          <a href="sucursal.php" class="hover:underline">Sucursales</a>
+          <?php
+          // archivo => permiso que pide; solo se muestra si el rol del usuario lo tiene
+          $menu = [
+              'proveedor.php' => 'Proveedores',
+              'producto.php' => 'Productos',
+              'sucursal.php' => 'Sucursales',
+              'empleado.php' => 'Empleados',
+              'promocion.php' => 'Promociones',
+              'rol.php' => 'Roles',
+          ];
+          foreach ($menu as $archivo => $permiso):
+              if (in_array($permiso, $_SESSION['permisos'] ?? [], true)): ?>
+          <a href="<?php echo $archivo; ?>" class="hover:underline"><?php echo $permiso; ?></a>
+          <?php endif; endforeach; ?>
           <a href="../index.html" class="hover:underline">Ver sitio</a>
           <span class="font-semibold"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
           <a href="login.php?accion=logout" class="rounded bg-white/20 px-3 py-1 hover:bg-white/30">Salir</a>

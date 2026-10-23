@@ -12,7 +12,7 @@
   <div class="mx-auto max-w-md px-4 py-16">
     <form class="cuadro-naranja space-y-4" action="login.php" method="post">
       <h1 class="titulo-banner text-center text-3xl font-black uppercase text-lime-400">Tortas Josefo</h1>
-      <p class="text-center text-gray-700">Acceso del dueño</p>
+      <p class="text-center text-gray-700">Acceso al panel</p>
 
       <?php if ($error): ?>
         <p class="rounded bg-red-100 px-3 py-2 text-sm text-red-700"><?php echo $error; ?></p>
@@ -20,11 +20,11 @@
 
       <div>
         <label class="font-semibold" for="correo">Correo</label>
-        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="email" name="correo" id="correo">
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="email" name="correo" id="correo" placeholder="correo@ejemplo.com">
       </div>
       <div>
         <label class="font-semibold" for="password">Contraseña</label>
-        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="password" name="password" id="password">
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="password" name="password" id="password" placeholder="Tu contraseña">
       </div>
 
       <input class="w-full rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600" type="submit" name="enviar" value="Entrar">

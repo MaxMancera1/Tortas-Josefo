@@ -1,0 +1,35 @@
+<h1 class="text-3xl font-semibold"><?php echo $accion == 'create' ? 'Nuevo rol' : 'Editar rol'; ?></h1>
+
+<form class="cuadro-naranja mx-auto max-w-xl space-y-4" action="rol.php?accion=<?php echo $accion; isset($datos['id']) ? print '&id='.$datos['id'] : print '';?>" method="post">
+
+  <?php if (!empty($datos['error'])): ?>
+  <p class="rounded border border-red-300 bg-red-100 px-3 py-2 text-red-700"><?php echo $datos['error']; ?></p>
+  <?php endif; ?>
+
+  <div>
+    <label class="font-semibold" for="rol">Nombre del rol</label>
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[rol]" id="rol" required minlength="3" maxlength="50" placeholder="Ej. Repartidor"
+      value="<?php isset($datos['rol']) ? print htmlspecialchars($datos['rol']) : print '';?>">
+  </div>
+
+  <fieldset>
+    <legend class="font-semibold">Permisos</legend>
+    <p class="text-sm text-gray-600">Secciones del panel que podrá usar este rol.</p>
+    <div class="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <?php $marcados = array_map('intval', (array)($datos['permisos'] ?? [])); ?>
+      <?php foreach ($permisos as $p): ?>
+      <label class="flex items-center gap-2 rounded border border-orange-200 bg-white px-3 py-2">
+        <input type="checkbox" name="data[permisos][]" value="<?php echo $p['id_permiso']; ?>" class="accent-orange-500"
+          <?php echo in_array((int)$p['id_permiso'], $marcados, true) ? 'checked' : ''; ?>>
+        <?php echo htmlspecialchars($p['permiso']); ?>
+      </label>
+      <?php endforeach; ?>
+    </div>
+  </fieldset>
+
+  <div class="flex gap-3">
+    <input class="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white shadow hover:bg-green-700" type="submit" name="enviar" value="Guardar">
+    <a href="rol.php" class="rounded-lg bg-gray-200 px-4 py-2 font-semibold text-gray-800 hover:bg-gray-300">Cancelar</a>
+  </div>
+
+</form>

@@ -1,0 +1,32 @@
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <h1 class="text-3xl font-semibold">Roles</h1>
+  <a href="rol.php?accion=create" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Nuevo rol</a>
+</div>
+
+<div class="tarjeta overflow-x-auto">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b-2 border-orange-300 text-orange-700">
+      <tr>
+        <th class="px-3 py-2">#</th>
+        <th class="px-3 py-2">Rol</th>
+        <th class="px-3 py-2">Permisos</th>
+        <th class="px-3 py-2">Empleados</th>
+        <th class="px-3 py-2">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+<?php foreach($roles as $rol):?>
+      <tr class="border-b border-orange-100">
+        <th class="px-3 py-2"><?php echo $rol['id_rol']; ?></th>
+        <td class="px-3 py-2 font-semibold"><?php echo htmlspecialchars($rol['rol']); ?></td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($rol['permisos'] ?? 'Sin permisos'); ?></td>
+        <td class="px-3 py-2"><?php echo $rol['empleados']; ?></td>
+        <td class="px-3 py-2">
+          <a href="rol.php?accion=update&id=<?php echo $rol['id_rol']; ?>" class="rounded bg-orange-500 px-3 py-1 text-white hover:bg-orange-600">Editar</a>
+          <a href="rol.php?accion=delete&id=<?php echo $rol['id_rol']; ?>" data-confirm="¿Eliminar este rol?" data-nombre="<?php echo htmlspecialchars($rol['rol']); ?>" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
+        </td>
+      </tr>
+<?php endforeach;?>
+    </tbody>
+  </table>
+</div>

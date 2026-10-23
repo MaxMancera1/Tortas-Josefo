@@ -2,21 +2,25 @@
 
 <form class="cuadro-naranja mx-auto max-w-xl space-y-4" action="sucursal.php?accion=<?php echo $accion; isset($datos['id']) ? print '&id='.$datos['id'] : print '';?>" method="post">
 
+  <?php if (!empty($datos['error'])): ?>
+  <p class="rounded border border-red-300 bg-red-100 px-3 py-2 text-red-700"><?php echo $datos['error']; ?></p>
+  <?php endif; ?>
+
   <div>
     <label class="font-semibold" for="nombre">Nombre</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[nombre]" id="nombre" placeholder="Centro"
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[nombre]" id="nombre" required minlength="3" maxlength="100" placeholder="Ej. Centro"
       value="<?php isset($datos['nombre']) ? print htmlspecialchars($datos['nombre']) : print '';?>">
   </div>
 
   <div>
     <label class="font-semibold" for="direccion">Dirección</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[direccion]" id="direccion" placeholder="Calle, número y colonia"
-      value="<?php isset($datos['direccion']) ? print htmlspecialchars($datos['direccion']) : print '';?>">
+    <textarea class="mt-1 w-full rounded border border-gray-300 px-3 py-2" name="data[direccion]" id="direccion" rows="2" required minlength="10" maxlength="255" placeholder="Ej. Calle Mariano Matamoros 100, Centro, Cortazar"><?php isset($datos['direccion']) ? print htmlspecialchars($datos['direccion']) : print '';?></textarea>
   </div>
 
   <div>
     <label class="font-semibold" for="telefono">Teléfono</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[telefono]" id="telefono" placeholder="411 103 8297"
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="tel" name="data[telefono]" id="telefono" required maxlength="14"
+      pattern="[0-9 ]{10,14}" title="10 dígitos, puedes usar espacios. Ej. 411 103 8297" placeholder="Ej. 411 103 8297"
       value="<?php isset($datos['telefono']) ? print htmlspecialchars($datos['telefono']) : print '';?>">
   </div>
 

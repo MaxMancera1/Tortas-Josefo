@@ -1,9 +1,12 @@
 <section class="cuadro-naranja text-center">
   <h1 class="text-3xl font-semibold">Panel de administración</h1>
-  <p class="mt-3 text-gray-800">Catálogos del puesto.</p>
   <div class="mt-4 flex flex-wrap justify-center gap-3">
-    <a href="proveedor.php" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Proveedores</a>
-    <a href="producto.php" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Productos</a>
-    <a href="sucursal.php" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Sucursales</a>
+    <?php foreach ($menu as $archivo => $permiso):
+        if (in_array($permiso, $_SESSION['permisos'] ?? [], true)): ?>
+    <a href="<?php echo $archivo; ?>" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600"><?php echo $permiso; ?></a>
+    <?php endif; endforeach; ?>
   </div>
+  <?php if (empty($_SESSION['permisos'])): ?>
+  <p class="mt-4 text-sm text-gray-600">Tu usuario todavía no tiene roles. Pídele al dueño que te asigne uno.</p>
+  <?php endif; ?>
 </section>

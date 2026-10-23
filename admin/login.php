@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once __DIR__ . '/models/usuario/usuario.class.php';
-$app = new Usuario();
+include_once __DIR__ . '/models/empleado/empleado.class.php';
+$app = new Empleado();
 $accion = $_GET['accion'] ?? 'login';
 $error = '';
 switch ($accion) {
@@ -11,14 +11,15 @@ switch ($accion) {
         exit;
     default:
         if (isset($_POST['enviar'])) {
-            $usuario = $app->login($_POST['correo'], $_POST['password']);
-            if ($usuario) {
+            $empleado = $app->login($_POST['correo'], $_POST['password']);
+            if ($empleado) {
                 session_regenerate_id(true);
-                $_SESSION['usuario'] = $usuario['nombre'];
-                header('Location: proveedor.php');
+                $_SESSION['id_empleado'] = $empleado['id'];
+                $_SESSION['usuario'] = $empleado['nombre'];
+                header('Location: index.php');
                 exit;
             }
             $error = 'Correo o contraseña incorrectos';
         }
-        include_once __DIR__ . '/../templates/usuario/login.html';
+        include_once __DIR__ . '/../templates/admin/login.html';
 }

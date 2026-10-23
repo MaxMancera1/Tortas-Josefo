@@ -1,0 +1,49 @@
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <h1 class="text-3xl font-semibold">Empleados</h1>
+  <a href="empleado.php?accion=create" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Nuevo empleado</a>
+</div>
+
+<div class="tarjeta overflow-x-auto">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b-2 border-orange-300 text-orange-700">
+      <tr>
+        <th class="px-3 py-2">#</th>
+        <th class="px-3 py-2">Foto</th>
+        <th class="px-3 py-2">Nombre</th>
+        <th class="px-3 py-2">Puesto</th>
+        <th class="px-3 py-2">Teléfono</th>
+        <th class="px-3 py-2">Sucursal</th>
+        <th class="px-3 py-2">Acceso</th>
+        <th class="px-3 py-2">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+<?php foreach($empleados as $empleado):?>
+      <tr class="border-b border-orange-100">
+        <th class="px-3 py-2"><?php echo $empleado['id']; ?></th>
+        <td class="px-3 py-2">
+          <img src="../image/uploads/<?php echo htmlspecialchars($empleado['foto']); ?>" alt="" class="h-12 w-12 rounded-full border border-orange-200 bg-orange-50 object-cover">
+        </td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($empleado['nombre']); ?></td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($empleado['puesto']); ?></td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($empleado['telefono']); ?></td>
+        <td class="px-3 py-2"><?php echo htmlspecialchars($empleado['sucursal'] ?? ''); ?></td>
+        <td class="px-3 py-2">
+          <?php if ($empleado['correo']): ?>
+          <span class="rounded-full bg-orange-100 px-2 py-0.5 text-orange-800"><?php echo htmlspecialchars($empleado['roles'] ?? 'Sin rol'); ?></span>
+          <p class="mt-1 text-xs text-gray-600"><?php echo htmlspecialchars($empleado['correo']); ?></p>
+          <?php else: ?>
+          <span class="text-gray-500">Sin acceso</span>
+          <?php endif; ?>
+        </td>
+        <td class="px-3 py-2">
+          <a href="empleado.php?accion=update&id=<?php echo $empleado['id']; ?>" class="rounded bg-orange-500 px-3 py-1 text-white hover:bg-orange-600">Editar</a>
+          <?php if ((int)$empleado['id'] !== (int)$_SESSION['id_empleado']): ?>
+          <a href="empleado.php?accion=delete&id=<?php echo $empleado['id']; ?>" data-confirm="¿Eliminar este empleado?" data-nombre="<?php echo htmlspecialchars($empleado['nombre']); ?>" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
+          <?php endif; ?>
+        </td>
+      </tr>
+<?php endforeach;?>
+    </tbody>
+  </table>
+</div>

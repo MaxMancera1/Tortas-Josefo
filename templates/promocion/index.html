@@ -1,0 +1,44 @@
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <h1 class="text-3xl font-semibold">Promociones</h1>
+  <a href="promocion.php?accion=create" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Nueva promoción</a>
+</div>
+
+<div class="tarjeta overflow-x-auto">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b-2 border-orange-300 text-orange-700">
+      <tr>
+        <th class="px-3 py-2">#</th>
+        <th class="px-3 py-2">Imagen</th>
+        <th class="px-3 py-2">Promoción</th>
+        <th class="px-3 py-2">Precio</th>
+        <th class="px-3 py-2">Vigente hasta</th>
+        <th class="px-3 py-2">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+<?php foreach($promociones as $promocion):?>
+      <tr class="border-b border-orange-100">
+        <th class="px-3 py-2"><?php echo $promocion['id']; ?></th>
+        <td class="px-3 py-2">
+          <img src="../image/uploads/<?php echo htmlspecialchars($promocion['imagen']); ?>" alt="" class="h-12 w-16 rounded-lg border border-orange-200 bg-orange-50 object-cover">
+        </td>
+        <td class="px-3 py-2">
+          <p class="font-semibold"><?php echo htmlspecialchars($promocion['titulo']); ?></p>
+          <p class="text-gray-600"><?php echo htmlspecialchars($promocion['descripcion']); ?></p>
+        </td>
+        <td class="px-3 py-2 precio">$<?php echo htmlspecialchars($promocion['precio']); ?></td>
+        <td class="px-3 py-2">
+          <?php echo date('d/m/Y', strtotime($promocion['vigencia'])); ?>
+          <?php if ($promocion['vigencia'] < date('Y-m-d')): ?>
+          <span class="ml-1 rounded bg-gray-200 px-2 py-0.5 text-xs text-gray-600">Vencida</span>
+          <?php endif; ?>
+        </td>
+        <td class="px-3 py-2">
+          <a href="promocion.php?accion=update&id=<?php echo $promocion['id']; ?>" class="rounded bg-orange-500 px-3 py-1 text-white hover:bg-orange-600">Editar</a>
+          <a href="promocion.php?accion=delete&id=<?php echo $promocion['id']; ?>" data-confirm="¿Eliminar esta promoción?" data-nombre="<?php echo htmlspecialchars($promocion['titulo']); ?>" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">Eliminar</a>
+        </td>
+      </tr>
+<?php endforeach;?>
+    </tbody>
+  </table>
+</div>

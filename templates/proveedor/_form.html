@@ -1,22 +1,40 @@
 <h1 class="text-3xl font-semibold"><?php echo $accion == 'create' ? 'Nuevo proveedor' : 'Editar proveedor'; ?></h1>
 
-<form class="cuadro-naranja mx-auto max-w-xl space-y-4" action="proveedor.php?accion=<?php echo $accion; isset($datos['id']) ? print '&id='.$datos['id'] : print '';?>" method="post">
+<form enctype="multipart/form-data" class="cuadro-naranja mx-auto max-w-xl space-y-4" action="proveedor.php?accion=<?php echo $accion; isset($datos['id']) ? print '&id='.$datos['id'] : print '';?>" method="post">
+
+  <?php if (!empty($datos['error'])): ?>
+  <p class="rounded border border-red-300 bg-red-100 px-3 py-2 text-red-700"><?php echo $datos['error']; ?></p>
+  <?php endif; ?>
+
+  <div>
+    <p class="font-semibold">Logo</p>
+    <label for="logo" class="mt-1 flex cursor-pointer items-center gap-4">
+      <span class="block h-32 w-32 overflow-hidden rounded-lg border-2 border-dashed border-orange-300 bg-white">
+        <img id="logoPreview" alt="" class="h-full w-full object-contain" <?php if (!empty($datos['logo'])): ?>src="../image/uploads/<?php echo htmlspecialchars($datos['logo']); ?>"<?php endif; ?>>
+      </span>
+      <span class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Seleccionar imagen</span>
+      <span id="nombreLogo" class="text-sm text-gray-600"><?php echo $accion === 'update' ? 'Deja vacío para conservar el actual' : 'JPG, PNG o WEBP, máx. 2 MB'; ?></span>
+    </label>
+    <input type="file" name="logo" id="logo" class="sr-only" accept="image/jpeg,image/png,image/webp" <?php echo $accion === 'create' ? 'required' : ''; ?>>
+  </div>
 
   <div>
     <label class="font-semibold" for="razon_social">Razón social</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[razon_social]" id="razon_social"
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[razon_social]" id="razon_social" required minlength="3" maxlength="255" placeholder="Ej. Panadería La Espiga de Cortazar"
       value="<?php isset($datos['razon_social']) ? print htmlspecialchars($datos['razon_social']) : print '';?>">
   </div>
 
   <div>
     <label class="font-semibold" for="rfc">RFC</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[rfc]" id="rfc"
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2 uppercase" type="text" name="data[rfc]" id="rfc" required maxlength="13" placeholder="Ej. PEC900101AB1"
+      pattern="[A-Za-zÑñ&amp;]{3,4}[0-9]{6}[A-Za-z0-9]{3}" oninvalid="this.setCustomValidity('Ingresa un RFC válido')" oninput="this.setCustomValidity('')"
       value="<?php isset($datos['rfc']) ? print htmlspecialchars($datos['rfc']) : print '';?>">
+    <p class="mt-1 text-xs text-gray-500">Ej. PEC900101AB1 (empresa) o GOMA850315XY2 (persona)</p>
   </div>
 
   <div>
     <label class="font-semibold" for="producto">Qué surte</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[producto]" id="producto" placeholder="Pan bolillo, jamón, refrescos..."
+    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[producto]" id="producto" required maxlength="255" placeholder="Ej. Pan bolillo, jamón, refrescos..."
       value="<?php isset($datos['producto']) ? print htmlspecialchars($datos['producto']) : print '';?>">
   </div>
 
@@ -26,3 +44,11 @@
   </div>
 
 </form>
+<script>
+document.getElementById('logo').addEventListener('change', function () {
+  var file = this.files && this.files[0];
+  if (!file) return;
+  document.getElementById('logoPreview').src = URL.createObjectURL(file);
+  document.getElementById('nombreLogo').textContent = file.name;
+});
+</script>

@@ -4,7 +4,25 @@ require_once __DIR__ . '/../sistema.class.php';
 
 class Sucursal extends Sistema {
 
+    function validar($data){
+        if (mb_strlen(trim($data['nombre'] ?? '')) < 3) {
+            return 'El nombre debe tener al menos 3 caracteres';
+        }
+        if (mb_strlen(trim($data['direccion'] ?? '')) < 10) {
+            return 'Escribe la dirección completa (mínimo 10 caracteres)';
+        }
+        // 10 dígitos; se permiten espacios como en "411 103 8297"
+        if (!preg_match('/^[0-9]{10}$/', str_replace(' ', '', $data['telefono'] ?? ''))) {
+            return 'El teléfono debe tener 10 dígitos';
+        }
+        return null;
+    }
+
     function create($data){
+        $error = $this->validar($data);
+        if ($error) {
+            return $data + ['error' => $error];
+        }
         $datos = [];
         $sql = "INSERT INTO sucursales (nombre, direccion, telefono)
                 VALUES (:nombre, :direccion, :telefono)";
@@ -38,6 +56,10 @@ class Sucursal extends Sistema {
     function update($id, $data){
         $afectados = 0;
         if (is_numeric($id)){
+            $error = $this->validar($data);
+            if ($error) {
+                return $data + ['id' => $id, 'error' => $error];
+            }
             $sql = "UPDATE sucursales SET nombre = :nombre, direccion = :direccion, telefono = :telefono WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(":nombre", $data['nombre'], PDO::PARAM_STR);
