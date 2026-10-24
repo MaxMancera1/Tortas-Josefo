@@ -1,86 +1,84 @@
 <h1 class="text-3xl font-semibold"><?php echo $accion == 'create' ? 'Nuevo empleado' : 'Editar empleado'; ?></h1>
 
-<form enctype="multipart/form-data" class="cuadro-naranja mx-auto max-w-xl space-y-4" action="empleado.php?accion=<?php echo $accion; isset($datos['id']) ? print '&id='.$datos['id'] : print '';?>" method="post">
+<form enctype="multipart/form-data" class="cuadro-naranja w-full space-y-4" action="empleado.php?accion=<?php echo $accion; isset($datos['id']) ? print '&id='.$datos['id'] : print '';?>" method="post">
 
   <?php if (!empty($datos['error'])): ?>
   <p class="rounded border border-red-300 bg-red-100 px-3 py-2 text-red-700"><?php echo $datos['error']; ?></p>
   <?php endif; ?>
 
-  <div>
-    <p class="font-semibold">Foto</p>
-    <label for="foto" class="mt-1 flex cursor-pointer items-center gap-4">
-      <span class="block h-32 w-32 overflow-hidden rounded-full border-2 border-dashed border-orange-300 bg-white">
-        <img id="fotoPreview" alt="" class="h-full w-full object-cover" <?php if (!empty($datos['foto'])): ?>src="../image/uploads/<?php echo htmlspecialchars($datos['foto']); ?>"<?php endif; ?>>
-      </span>
-      <span class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Seleccionar imagen</span>
-      <span id="nombreImagen" class="text-sm text-gray-600"><?php echo $accion === 'update' ? 'Deja vacío para conservar la actual' : 'JPG, PNG o WEBP, máx. 2 MB'; ?></span>
-    </label>
-    <input type="file" name="foto" id="foto" class="sr-only" accept="image/jpeg,image/png,image/webp" <?php echo $accion === 'create' ? 'required' : ''; ?>>
-  </div>
-
-  <div>
-    <label class="font-semibold" for="nombre">Nombre</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[nombre]" id="nombre" required minlength="3" maxlength="100" placeholder="Ej. Juan Pérez"
-      value="<?php isset($datos['nombre']) ? print htmlspecialchars($datos['nombre']) : print '';?>">
-  </div>
-
-  <div>
-    <label class="font-semibold" for="puesto">Puesto</label>
-    <select class="mt-1 w-full rounded border border-gray-300 bg-white px-3 py-2" name="data[puesto]" id="puesto" required>
-      <option value="">Elige un puesto</option>
-      <?php foreach ($puestos as $puesto): ?>
-      <option <?php echo ($datos['puesto'] ?? '') === $puesto ? 'selected' : ''; ?>><?php echo $puesto; ?></option>
-      <?php endforeach; ?>
-    </select>
-  </div>
-
-  <div>
-    <label class="font-semibold" for="telefono">Teléfono</label>
-    <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="tel" name="data[telefono]" id="telefono" required maxlength="14"
-      pattern="[0-9 ]{10,14}" title="10 dígitos, puedes usar espacios. Ej. 411 103 8297" placeholder="Ej. 411 103 8297"
-      value="<?php isset($datos['telefono']) ? print htmlspecialchars($datos['telefono']) : print '';?>">
-  </div>
-
-  <div>
-    <label class="font-semibold" for="id_sucursal">Sucursal</label>
-    <select class="mt-1 w-full rounded border border-gray-300 bg-white px-3 py-2" name="data[id_sucursal]" id="id_sucursal" required>
-      <option value="">Elige una sucursal</option>
-      <?php foreach ($sucursales as $sucursal): ?>
-      <option value="<?php echo $sucursal['id']; ?>" <?php echo (string) $sucursal['id'] === (string) ($datos['id_sucursal'] ?? '') ? 'selected' : ''; ?>><?php echo htmlspecialchars($sucursal['nombre']); ?></option>
-      <?php endforeach; ?>
-    </select>
-  </div>
-
-  <fieldset class="space-y-4 rounded-lg border border-orange-200 bg-white/60 p-4">
-    <legend class="px-1 font-semibold">Acceso al panel (opcional)</legend>
-    <p class="text-sm text-gray-600">Déjalo vacío si este empleado no necesita entrar al panel (ej. cocinero o repartidor).</p>
-
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
     <div>
-      <label class="font-semibold" for="correo">Correo</label>
-      <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="email" name="data[correo]" id="correo" maxlength="150" placeholder="Ej. gisela@tortasjosefo.com"
-        value="<?php isset($datos['correo']) ? print htmlspecialchars($datos['correo']) : print '';?>">
+      <p class="font-semibold">Foto</p>
+      <label for="foto" class="mt-1 flex cursor-pointer flex-col items-start gap-3">
+        <span class="block h-36 w-36 overflow-hidden rounded-full border-2 border-dashed border-orange-300 bg-white">
+          <img id="fotoPreview" alt="" class="h-full w-full object-cover" <?php if (!empty($datos['foto'])): ?>src="../image/uploads/<?php echo htmlspecialchars($datos['foto']); ?>"<?php endif; ?>>
+        </span>
+        <span class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Seleccionar imagen</span>
+        <span id="nombreImagen" class="text-sm text-gray-600"><?php echo $accion === 'update' ? 'Deja vacío para conservar la actual' : 'JPG, PNG o WEBP, máx. 2 MB'; ?></span>
+      </label>
+      <input type="file" name="foto" id="foto" class="sr-only" accept="image/jpeg,image/png,image/webp" <?php echo $accion === 'create' ? 'required' : ''; ?>>
     </div>
 
-    <div>
-      <label class="font-semibold" for="password">Contraseña</label>
-      <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="password" name="data[password]" id="password" minlength="6" maxlength="72" autocomplete="new-password"
-        placeholder="<?php echo empty($datos['correo']) ? 'Mínimo 6 caracteres' : 'Déjala vacía para no cambiarla'; ?>">
-    </div>
-
-    <div>
-      <p class="font-semibold">Roles</p>
-      <div class="mt-2 flex flex-wrap gap-3">
-        <?php $marcados = array_map('intval', (array)($datos['roles'] ?? [])); ?>
-        <?php foreach ($roles as $rol): ?>
-        <label class="flex items-center gap-2 rounded border border-orange-200 bg-white px-3 py-2">
-          <input type="checkbox" name="data[roles][]" value="<?php echo $rol['id_rol']; ?>" class="accent-orange-500"
-            <?php echo in_array((int)$rol['id_rol'], $marcados, true) ? 'checked' : ''; ?>>
-          <?php echo htmlspecialchars($rol['rol']); ?>
-        </label>
-        <?php endforeach; ?>
+    <div class="space-y-4">
+      <div>
+        <label class="font-semibold" for="nombre">Nombre</label>
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" name="data[nombre]" id="nombre" required minlength="3" maxlength="100" placeholder="Ej. Juan Pérez"
+          value="<?php isset($datos['nombre']) ? print htmlspecialchars($datos['nombre']) : print '';?>">
+      </div>
+      <div>
+        <label class="font-semibold" for="puesto">Puesto</label>
+        <select class="mt-1 w-full rounded border border-gray-300 bg-white px-3 py-2" name="data[puesto]" id="puesto" required>
+          <option value="">Elige un puesto</option>
+          <?php foreach ($puestos as $puesto): ?>
+          <option <?php echo ($datos['puesto'] ?? '') === $puesto ? 'selected' : ''; ?>><?php echo $puesto; ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div>
+        <label class="font-semibold" for="telefono">Teléfono</label>
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="tel" name="data[telefono]" id="telefono" required maxlength="14"
+          pattern="[0-9 ]{10,14}" title="10 dígitos, puedes usar espacios. Ej. 411 103 8297" placeholder="Ej. 411 103 8297"
+          value="<?php isset($datos['telefono']) ? print htmlspecialchars($datos['telefono']) : print '';?>">
+      </div>
+      <div>
+        <label class="font-semibold" for="id_sucursal">Sucursal</label>
+        <select class="mt-1 w-full rounded border border-gray-300 bg-white px-3 py-2" name="data[id_sucursal]" id="id_sucursal" required>
+          <option value="">Elige una sucursal</option>
+          <?php foreach ($sucursales as $sucursal): ?>
+          <option value="<?php echo $sucursal['id']; ?>" <?php echo (string) $sucursal['id'] === (string) ($datos['id_sucursal'] ?? '') ? 'selected' : ''; ?>><?php echo htmlspecialchars($sucursal['nombre']); ?></option>
+          <?php endforeach; ?>
+        </select>
       </div>
     </div>
-  </fieldset>
+
+    <fieldset class="space-y-4 rounded-lg border border-orange-200 bg-white/60 p-4">
+      <legend class="px-1 font-semibold">Acceso al panel (opcional)</legend>
+      <p class="text-sm text-gray-600">Déjalo vacío si no necesita entrar al panel.</p>
+      <div>
+        <label class="font-semibold" for="correo">Correo</label>
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="email" name="data[correo]" id="correo" maxlength="150" placeholder="Ej. correo@gmail.com"
+          value="<?php isset($datos['correo']) ? print htmlspecialchars($datos['correo']) : print '';?>">
+      </div>
+      <div>
+        <label class="font-semibold" for="password">Contraseña</label>
+        <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="password" name="data[password]" id="password" minlength="6" maxlength="72" autocomplete="new-password"
+          placeholder="<?php echo empty($datos['correo']) ? 'Mínimo 6 caracteres' : 'Déjala vacía para no cambiarla'; ?>">
+      </div>
+      <div>
+        <p class="font-semibold">Roles</p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <?php $marcados = array_map('intval', (array)($datos['roles'] ?? [])); ?>
+          <?php foreach ($roles as $rol): ?>
+          <label class="flex items-center gap-2 rounded border border-orange-200 bg-white px-3 py-2">
+            <input type="checkbox" name="data[roles][]" value="<?php echo $rol['id_rol']; ?>" class="accent-orange-500"
+              <?php echo in_array((int)$rol['id_rol'], $marcados, true) ? 'checked' : ''; ?>>
+            <?php echo htmlspecialchars($rol['rol']); ?>
+          </label>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </fieldset>
+  </div>
 
   <div class="flex gap-3">
     <input class="rounded-lg bg-green-600 px-4 py-2 font-semibold text-white shadow hover:bg-green-700" type="submit" name="enviar" value="Guardar">

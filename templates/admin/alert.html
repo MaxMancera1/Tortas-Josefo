@@ -1,0 +1,7 @@
+<?php if (!empty($alerta['mensaje'])): ?>
+<p class="alerta <?php echo ($alerta['tipo'] ?? '') === 'success' ? 'alerta-ok' : 'alerta-error'; ?>">
+  <?php echo htmlspecialchars($alerta['mensaje']); ?>
+</p>
+<?php elseif (!empty($error)): ?>
+<p class="alerta alerta-error"><?php echo htmlspecialchars($error); ?></p>
+<?php endif; ?>

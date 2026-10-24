@@ -1,0 +1,11 @@
+<form action="login.php?accion=enviar_correo" method="post">
+  <h2>Recuperar contraseña</h2>
+  <p class="lead">Escribe tu correo y te mandamos el enlace con el token.</p>
+  <?php include __DIR__ . '/alert.html'; ?>
+  <label for="correo">Correo</label>
+  <input type="email" name="correo" id="correo" placeholder="correo@gmail.com" required>
+  <input class="btn-entrar" type="submit" name="enviar" value="Recuperar">
+  <div class="links">
+    <a href="login.php">Volver a entrar</a>
+  </div>
+</form>

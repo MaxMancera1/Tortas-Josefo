@@ -1,6 +1,13 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
     require_once __DIR__ . '/config.php';
+    require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/Exception.php';
+    require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+    require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/SMTP.php';
     class Sistema {
     var $db;
     function __construct() {
@@ -68,6 +75,34 @@
             include __DIR__ . '/../../templates/admin/sin_permiso.html';
             include __DIR__ . '/../../templates/admin/footer.html';
             exit;
+        }
+    }
+
+    function enviarCorreo($destinatarios, $asunto, $contenido, $adjunto = null){
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->Host = SMTP_HOST;
+            $mail->Port = SMTP_PORT;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Timeout = 8;
+            $mail->SMTPAuth = true;
+            $mail->Username = SMTP_USER;
+            $mail->Password = SMTP_PASS;
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
+            foreach ((array)$destinatarios as $destinatario) {
+                $mail->addAddress($destinatario);
+            }
+            $mail->Subject = $asunto;
+            $mail->Body = $contenido;
+            if ($adjunto) {
+                $mail->addAttachment($adjunto);
+            }
+            return $mail->send();
+        } catch (Exception $e) {
+            return false;
         }
     }
     }

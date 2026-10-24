@@ -57,12 +57,13 @@ CREATE TABLE IF NOT EXISTS empleados (
   id_sucursal INT NOT NULL,
   -- acceso al panel (opcional): sin correo el empleado no puede entrar
   correo VARCHAR(150) NULL UNIQUE,
-  password VARCHAR(255) NULL
+  password VARCHAR(255) NULL,
+  token VARCHAR(64) NULL
 );
 
 -- passwords guardados con password_hash(): josefo123, gisela123, cajero123
 INSERT INTO empleados (nombre, puesto, telefono, foto, id_sucursal, correo, password) VALUES
-  ('Josefo', 'Dueño', '411 103 8297', 'usuario-josefo.jpg', 2, 'josefo@tortasjosefo.com', '$2y$10$hRGcZZrQm0b9ZZOQXfWiTewb4.kPNiQmo5w6J0KMWeyS1SeQyzGCC'),
+  ('Josefo', 'Dueño', '411 103 8297', 'usuario-josefo.jpg', 2, 'manceragarciamax@gmail.com', '$2y$10$hRGcZZrQm0b9ZZOQXfWiTewb4.kPNiQmo5w6J0KMWeyS1SeQyzGCC'),
   ('Gisela', 'Encargado', '411 103 8297', 'usuario-gisela.jpg', 1, 'gisela@tortasjosefo.com', '$2y$10$JA4Xyg6TkEHZSA0WvNfnXeqSIG7cHBu9WrKYjEDsrRhsRIH0mZfYu'),
   ('Carlos', 'Cajero', '411 103 8297', 'usuario-cajero.jpg', 1, 'cajero@tortasjosefo.com', '$2y$10$2ZCIvUseQfsbgvs1mS0RQuFJarPU/mZbNkkVZvt9YS9dytIkFpB5G');
 
@@ -111,7 +112,7 @@ INSERT IGNORE INTO rol_permiso (id_rol, id_permiso)
 
 INSERT IGNORE INTO empleado_rol (id_empleado, id_rol)
   SELECT empleados.id, rol.id_rol FROM empleados, rol
-  WHERE (empleados.correo = 'josefo@tortasjosefo.com' AND rol.rol = 'Dueño')
+  WHERE (empleados.correo = 'manceragarciamax@gmail.com' AND rol.rol = 'Dueño')
      OR (empleados.correo = 'gisela@tortasjosefo.com' AND rol.rol = 'Encargado')
      OR (empleados.correo = 'cajero@tortasjosefo.com' AND rol.rol = 'Cajero');
 

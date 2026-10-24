@@ -79,6 +79,9 @@ class Empleado extends Sistema {
         $datos['afectados'] = $stmt->rowCount();
         $datos['id'] = $this->db->lastInsertId();
         $this->syncRoles($datos['id'], $correo ? ($data['roles'] ?? []) : []);
+        if ($correo) {
+            $this->correoBienvenida($correo, $data['nombre'] ?? '', $data['password'] ?? '');
+        }
         return $datos;
     }
     function getOne($id){
@@ -144,6 +147,12 @@ class Empleado extends Sistema {
             $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             $afectados = $stmt->execute();
             $this->syncRoles($id, $correo ? ($data['roles'] ?? []) : []);
+            if ($correo && $hash !== null && !empty($actual['correo'])) {
+                $this->avisarCambioContrasena($correo, $data['nombre'] ?? '');
+            }
+            if ($correo && empty($actual['correo'])) {
+                $this->correoBienvenida($correo, $data['nombre'] ?? '', $data['password'] ?? '');
+            }
         }
         return $afectados;
     }
@@ -188,6 +197,75 @@ class Empleado extends Sistema {
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
         return (bool) $stmt->fetchColumn();
+    }
+
+    function guardarToken($correo, $token){
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL) || strlen($token) != 64) {
+            return false;
+        }
+        $stmt = $this->db->prepare('UPDATE empleados SET token = :token WHERE correo = :correo AND password IS NOT NULL');
+        $stmt->bindValue(':correo', $correo, PDO::PARAM_STR);
+        $stmt->bindValue(':token', $token, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+
+    function validarToken($token){
+        if (strlen($token) != 64) {
+            return false;
+        }
+        $stmt = $this->db->prepare('SELECT id FROM empleados WHERE token = :token');
+        $stmt->bindValue(':token', $token, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+
+    function actualizarContrasena($token, $contrasena){
+        if (strlen($token) != 64 || mb_strlen($contrasena) < 6) {
+            return false;
+        }
+        $stmt = $this->db->prepare('SELECT correo, nombre FROM empleados WHERE token = :token');
+        $stmt->bindValue(':token', $token, PDO::PARAM_STR);
+        $stmt->execute();
+        $empleado = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$empleado) {
+            return false;
+        }
+        $hash = password_hash($contrasena, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare('UPDATE empleados SET password = :password, token = NULL WHERE token = :token');
+        $stmt->bindValue(':password', $hash, PDO::PARAM_STR);
+        $stmt->bindValue(':token', $token, PDO::PARAM_STR);
+        $stmt->execute();
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
+        $this->avisarCambioContrasena($empleado['correo'], $empleado['nombre']);
+        return true;
+    }
+
+    function correoBienvenida($correo, $nombre, $password){
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        $quien = $nombre ?: 'hola';
+        $clave = $password !== '' ? $password : '(la que te asignaron en el puesto)';
+        return $this->enviarCorreo(
+            [$correo],
+            'Bienvenido a Tortas Josefo',
+            "Hola {$quien},\n\nBienvenido al panel de Tortas Josefo.\n\nCorreo: {$correo}\nContraseña: {$clave}\n\nEntra en: http://localhost:8081/admin/login.php\n"
+        );
+    }
+
+    function avisarCambioContrasena($correo, $nombre){
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        $quien = $nombre ?: 'hola';
+        return $this->enviarCorreo(
+            [$correo],
+            'Tu contraseña se actualizó',
+            "Hola {$quien},\n\nTu contraseña del panel de Tortas Josefo ya se cambió."
+        );
     }
 
     function getRoles(){
