@@ -1,10 +1,13 @@
 <div class="flex flex-wrap items-center justify-between gap-3">
   <h1 class="text-3xl font-semibold">Productos</h1>
-  <a href="producto.php?accion=create" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Nuevo producto</a>
+  <div class="flex gap-2">
+    <a href="producto.php?accion=pdf" class="rounded-lg bg-gray-800 px-4 py-2 font-semibold text-white shadow hover:bg-gray-900">Descargar menú PDF</a>
+    <a href="producto.php?accion=create" class="rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600">Nuevo producto</a>
+  </div>
 </div>
 
 <div class="tarjeta overflow-x-auto">
-  <table class="w-full text-left text-sm">
+  <table class="tabla-datos w-full text-left text-sm">
     <thead class="border-b-2 border-orange-300 text-orange-700">
       <tr>
         <th class="px-3 py-2">#</th>

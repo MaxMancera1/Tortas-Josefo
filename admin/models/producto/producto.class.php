@@ -106,6 +106,41 @@ class Producto extends Sistema {
         }
         return $afectados;
     }
+
+    function reportePdf(){
+        require_once __DIR__ . '/../../vendor/setasign/fpdf/fpdf.php';
+        $pdf = new FPDF('P', 'mm', 'A4');
+        $pdf->SetTitle('Menu Tortas Josefo');
+        $pdf->AddPage();
+        $pdf->SetFillColor(234, 88, 12);
+        $pdf->Rect(0, 0, 210, 22, 'F');
+        $pdf->SetTextColor(255, 255, 255);
+        $pdf->SetFont('Helvetica', 'B', 16);
+        $pdf->SetXY(12, 6);
+        $pdf->Cell(0, 10, $this->pdfTxt('Menu de Tortas Josefo'), 0, 1);
+        $pdf->SetTextColor(67, 20, 7);
+        $pdf->SetFont('Helvetica', '', 10);
+        $pdf->SetXY(12, 26);
+        $pdf->Cell(0, 6, $this->pdfTxt('Cortazar, Gto. - ' . date('d/m/Y')), 0, 1);
+        $pdf->Ln(4);
+        $pdf->SetFont('Helvetica', 'B', 10);
+        $pdf->SetFillColor(255, 237, 213);
+        $pdf->Cell(90, 8, $this->pdfTxt('Producto'), 1, 0, 'L', true);
+        $pdf->Cell(50, 8, $this->pdfTxt('Categoria'), 1, 0, 'L', true);
+        $pdf->Cell(40, 8, $this->pdfTxt('Precio'), 1, 1, 'R', true);
+        $pdf->SetFont('Helvetica', '', 10);
+        foreach ($this->getAll() as $p) {
+            $pdf->Cell(90, 8, $this->pdfTxt($p['nombre']), 1);
+            $pdf->Cell(50, 8, $this->pdfTxt($p['categoria']), 1);
+            $pdf->Cell(40, 8, '$' . number_format((float)$p['precio'], 2), 1, 1, 'R');
+        }
+        $pdf->Output('I', 'menu-tortas-josefo.pdf');
+        exit;
+    }
+
+    private function pdfTxt($s){
+        return mb_convert_encoding((string)$s, 'ISO-8859-1', 'UTF-8');
+    }
 }
 
 ?>

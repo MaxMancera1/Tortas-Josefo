@@ -5,6 +5,9 @@ $app->checarAcceso('Productos');
 $categorias = $app->categorias;
 $accion = $_GET['accion'] ?? 'read';
 $id = $_GET['id'] ?? null;
+if ($accion === 'pdf') {
+    $app->reportePdf();
+}
 include_once __DIR__ . '/../templates/admin/header.html';
 switch ($accion) {
     case 'create':

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="image/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="image/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body class="bg-orange-50 font-sans">
   <div class="max-w-6xl mx-auto px-4 py-6 space-y-5">
@@ -61,8 +62,8 @@
     </section>
     <div class="grid items-start gap-6 md:grid-cols-2">
       <div class="tarjeta">
-        <img class="mapa-sucursal w-full rounded-lg" src="image/mapa-cortazar.png" alt="Mapa de Tortas Josefo en Cortazar">
-        <p class="mt-2 text-center text-sm text-gray-600">Ubicación en Google Maps.</p>
+        <div id="mapa-sucursales" class="mapa-sucursal h-80 w-full rounded-lg"></div>
+        <p class="mt-2 text-center text-sm text-gray-600">Mapa interactivo de las sucursales en Cortazar.</p>
       </div>
       <div class="tarjeta">
         <img class="h-56 w-full rounded-lg object-cover" src="image/sucursal.png" alt="El puesto de Tortas Josefo">
@@ -79,5 +80,16 @@
       <p class="mt-1"><a href="admin/login.php" class="text-xs underline">Acceso dueño</a></p>
     </footer>
   </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const mapa = L.map('mapa-sucursales').setView([20.4836, -100.9629], 16);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(mapa);
+    L.marker([20.4836, -100.9629])
+      .addTo(mapa)
+      .bindPopup('<strong>Tortas Josefo</strong><br>Antonio Madrazo y Colegio Militar')
+      .openPopup();
+  </script>
 </body>
 </html>

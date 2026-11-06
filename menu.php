@@ -90,11 +90,24 @@ $notas = [
     <?php endforeach; ?>
 
     <p class="text-center text-gray-800">Pide en el puesto o en <a href="ordenar.html" class="text-orange-600 underline">Ordenar</a>.</p>
+    <div class="tarjeta mx-auto flex max-w-md flex-col items-center gap-2 text-center">
+      <p class="font-semibold text-orange-900">Comparte el menú</p>
+      <div id="qr-menu"></div>
+      <p class="text-sm text-gray-600">Escanea para abrir esta página en el celular.</p>
+    </div>
     <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
       <p>Antonio Madrazo y Colegio Militar · 411 103 8297</p>
       <p class="mt-1"><a href="admin/login.php" class="text-xs underline">Acceso dueño</a></p>
     </footer>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById('qr-menu'), {
+      text: window.location.href,
+      width: 128,
+      height: 128
+    });
+  </script>
 </body>
 </html>

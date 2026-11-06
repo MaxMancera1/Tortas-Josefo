@@ -26,3 +26,20 @@
   border-radius: 0.75rem;
   padding: 1.25rem;
 }
+
+.datatable-wrapper .datatable-top,
+.datatable-wrapper .datatable-bottom {
+  padding: 0.5rem 0;
+}
+.datatable-wrapper .datatable-input {
+  border: 1px solid #fed7aa;
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.6rem;
+}
+.galeria-swiper .swiper-button-next,
+.galeria-swiper .swiper-button-prev {
+  color: #ea580c;
+}
+.galeria-swiper .swiper-pagination-bullet-active {
+  background: #ea580c;
+}

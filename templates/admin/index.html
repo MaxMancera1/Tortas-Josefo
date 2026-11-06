@@ -94,6 +94,15 @@
     </div>
   </div>
 
+  <div class="mt-6 flex flex-wrap items-center gap-6 rounded-2xl border border-orange-200 bg-white p-5">
+    <div id="qr-menu" class="h-36 w-36"></div>
+    <div>
+      <h3 class="font-semibold text-orange-900">Código QR del menú público</h3>
+      <p class="mt-1 text-sm text-orange-800">Escanéalo para abrir lo que ve la gente en el sitio. Si cambias un producto, el menú y este QR siguen apuntando al mismo enlace.</p>
+      <p class="mt-2 text-xs text-gray-500" id="qr-url"></p>
+    </div>
+  </div>
+
   <div class="dash-lectura">
     <div>
       <strong>$<?php echo (int)$promedio; ?></strong>
@@ -111,6 +120,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function () {
   const categorias = <?php echo json_encode($categorias, JSON_UNESCAPED_UNICODE); ?>;
@@ -130,6 +140,10 @@
       if (p < 1) requestAnimationFrame(paso);
     })(t0);
   }
+
+  const urlMenu = window.location.origin + '/menu.php';
+  document.getElementById('qr-url').textContent = urlMenu;
+  new QRCode(document.getElementById('qr-menu'), { text: urlMenu, width: 128, height: 128 });
 
   Chart.defaults.font.family = 'Figtree, sans-serif';
   if (reducir) Chart.defaults.animation = false;
