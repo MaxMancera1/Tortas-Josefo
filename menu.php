@@ -92,8 +92,9 @@ $notas = [
     <p class="text-center text-gray-800">Pide en el puesto o en <a href="ordenar.html" class="text-orange-600 underline">Ordenar</a>.</p>
     <div class="tarjeta mx-auto flex max-w-md flex-col items-center gap-2 text-center">
       <p class="font-semibold text-orange-900">Comparte el menú</p>
-      <div id="qr-menu"></div>
-      <p class="text-sm text-gray-600">Escanea para abrir esta página en el celular.</p>
+      <div id="qr-menu" class="h-36 w-36"></div>
+      <p class="text-sm text-gray-600">Escanea para abrir el menú en el celular.</p>
+      <p class="text-xs text-gray-500"><?php echo htmlspecialchars(MENU_QR_URL); ?></p>
     </div>
     <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
@@ -104,7 +105,7 @@ $notas = [
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     new QRCode(document.getElementById('qr-menu'), {
-      text: window.location.href,
+      text: <?php echo json_encode(MENU_QR_URL); ?>,
       width: 128,
       height: 128
     });

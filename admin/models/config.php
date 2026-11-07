@@ -13,4 +13,5 @@ define('SMTP_USER', 'manceragarciamax@gmail.com');
 define('SMTP_PASS', 'ycja djwh opkh lvco');
 define('SMTP_FROM', 'manceragarciamax@gmail.com');
 define('SMTP_FROM_NAME', 'Tortas Josefo');
+define('MENU_QR_URL', 'https://tortas-josefo.netlify.app/');
 ?>

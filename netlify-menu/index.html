@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menú | Tortas Josefo</title>
+  <link rel="icon" href="image/favicon.png" type="image/png">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #fff7ed;
+      color: #431407;
+      padding: 1rem 1rem 2rem;
+    }
+    h1 { margin: 0; font-size: 1.6rem; text-align: center; }
+    .sub { text-align: center; color: #9a3412; margin: .35rem 0 1.25rem; font-size: .95rem; }
+    h2 {
+      margin: 1.4rem 0 .6rem;
+      font-size: 1.15rem;
+      border-bottom: 2px solid #fdba74;
+      padding-bottom: .25rem;
+    }
+    .nota { margin: 0 0 .7rem; font-size: .9rem; color: #7c2d12; }
+    .lista { display: grid; gap: .55rem; }
+    .item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      background: #fff;
+      border: 1px solid #fed7aa;
+      border-radius: .7rem;
+      padding: .5rem .7rem;
+    }
+    .item img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: .5rem;
+    }
+    .item b { display: block; }
+    .precio { margin-left: auto; font-weight: 800; color: #c2410c; white-space: nowrap; }
+    footer { text-align: center; margin-top: 1.5rem; font-size: .85rem; color: #9a3412; }
+    @media (min-width: 700px) {
+      body { max-width: 720px; margin: 0 auto; }
+      .lista { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Menú · Tortas Josefo</h1>
+  <p class="sub">Cortazar, Gto. · 411 103 8297</p>
+
+  <h2>Tortas</h2>
+  <p class="nota">Pan bolillo, aguacate, jitomate y salsa. Con queso asadero, $10 más.</p>
+  <div class="lista">
+    <div class="item"><img src="image/uploads/torta-milanesa.png" alt=""><div><b>Torta de milanesa</b></div><span class="precio">$50</span></div>
+    <div class="item"><img src="image/uploads/torta-pierna.png" alt=""><div><b>Torta de pierna</b></div><span class="precio">$50</span></div>
+    <div class="item"><img src="image/uploads/torta-cubana.png" alt=""><div><b>Torta cubana</b></div><span class="precio">$50</span></div>
+    <div class="item"><img src="image/uploads/torta-jamon.png" alt=""><div><b>Torta de jamón</b></div><span class="precio">$50</span></div>
+  </div>
+
+  <h2>Hamburguesas</h2>
+  <div class="lista">
+    <div class="item"><img src="image/uploads/hamburguesa.png" alt=""><div><b>Hamburguesa</b></div><span class="precio">$55</span></div>
+    <div class="item"><img src="image/uploads/hamburguesa-queso.png" alt=""><div><b>Hamburguesa con queso</b></div><span class="precio">$65</span></div>
+  </div>
+
+  <h2>Quesadillas</h2>
+  <div class="lista">
+    <div class="item"><img src="image/uploads/quesadilla.png" alt=""><div><b>Quesadilla</b></div><span class="precio">$35</span></div>
+    <div class="item"><img src="image/uploads/quesadilla.png" alt=""><div><b>Quesadilla de jamón</b></div><span class="precio">$40</span></div>
+  </div>
+
+  <h2>Extras</h2>
+  <div class="lista">
+    <div class="item"><img src="image/uploads/papas.png" alt=""><div><b>Papas</b></div><span class="precio">$25</span></div>
+  </div>
+
+  <h2>Bebidas</h2>
+  <div class="lista">
+    <div class="item"><img src="image/uploads/jamaica.png" alt=""><div><b>Agua de jamaica</b></div><span class="precio">$15</span></div>
+    <div class="item"><img src="image/uploads/horchata.png" alt=""><div><b>Agua de horchata</b></div><span class="precio">$15</span></div>
+  </div>
+
+  <footer>Antonio Madrazo y Colegio Militar</footer>
+</body>
+</html>

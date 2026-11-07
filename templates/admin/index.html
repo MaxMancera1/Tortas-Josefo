@@ -98,8 +98,8 @@
     <div id="qr-menu" class="h-36 w-36"></div>
     <div>
       <h3 class="font-semibold text-orange-900">Código QR del menú público</h3>
-      <p class="mt-1 text-sm text-orange-800">Escanéalo para abrir lo que ve la gente en el sitio. Si cambias un producto, el menú y este QR siguen apuntando al mismo enlace.</p>
-      <p class="mt-2 text-xs text-gray-500" id="qr-url"></p>
+      <p class="mt-1 text-sm text-orange-800">Escanéalo para abrir el menú público en el celular.</p>
+      <p class="mt-2 text-xs text-gray-500"><?php echo htmlspecialchars(MENU_QR_URL); ?></p>
     </div>
   </div>
 
@@ -141,9 +141,11 @@
     })(t0);
   }
 
-  const urlMenu = window.location.origin + '/menu.php';
-  document.getElementById('qr-url').textContent = urlMenu;
-  new QRCode(document.getElementById('qr-menu'), { text: urlMenu, width: 128, height: 128 });
+  new QRCode(document.getElementById('qr-menu'), {
+    text: <?php echo json_encode(MENU_QR_URL); ?>,
+    width: 128,
+    height: 128
+  });
 
   Chart.defaults.font.family = 'Figtree, sans-serif';
   if (reducir) Chart.defaults.animation = false;
