@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{base}}/promociones.php"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "titulo": "Promo Postman",
+      "descripcion": "Creada desde Postman",
+      "precio": 80,
+      "vigencia": "2026-12-31",
+      "imagen": "promo-combo.png"
+    }
+order: 3000

@@ -1,14 +1,5 @@
 <?php
-// El menú público sale de la tabla productos: lo que se edita en el panel es lo que ve la gente
-include_once __DIR__ . '/admin/models/producto/producto.class.php';
-$app = new Producto();
-$menu = [];
-foreach ($app->getAll() as $producto) {
-    $menu[$producto['categoria']][] = $producto;
-}
-$notas = [
-    'Tortas' => 'Pan bolillo, aguacate, jitomate y salsa. Con queso asadero, $10 más.',
-];
+require_once __DIR__ . '/admin/models/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -72,22 +63,7 @@ $notas = [
       <h1 class="text-4xl font-semibold">Menú</h1>
       <p class="mt-3 text-xl text-gray-800">Tortas, hamburguesas, quesadillas, papas y aguas.</p>
     </section>
-
-    <?php foreach ($app->categorias as $categoria): if (empty($menu[$categoria])) continue; ?>
-    <h2 class="text-2xl font-semibold"><?php echo $categoria; ?></h2>
-    <?php if (isset($notas[$categoria])): ?>
-    <p class="text-gray-700"><?php echo $notas[$categoria]; ?></p>
-    <?php endif; ?>
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
-      <?php foreach ($menu[$categoria] as $producto): ?>
-      <figure class="tarjeta text-center">
-        <img class="aspect-square w-full rounded-lg object-cover" src="image/uploads/<?php echo htmlspecialchars($producto['foto']); ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>">
-        <figcaption class="mt-2 font-semibold"><?php echo htmlspecialchars($producto['nombre']); ?></figcaption>
-        <p class="mt-1 precio">$<?php echo number_format($producto['precio'], fmod($producto['precio'], 1) ? 2 : 0); ?></p>
-      </figure>
-      <?php endforeach; ?>
-    </div>
-    <?php endforeach; ?>
+    <div id="menu-api"></div>
 
     <p class="text-center text-gray-800">Pide en el puesto o en <a href="ordenar.html" class="text-orange-600 underline">Ordenar</a>.</p>
     <div class="tarjeta mx-auto flex max-w-md flex-col items-center gap-2 text-center">
@@ -109,6 +85,41 @@ $notas = [
       width: 128,
       height: 128
     });
+    const notas = { Tortas: 'Pan bolillo, aguacate, jitomate y salsa. Con queso asadero, $10 más.' };
+    const orden = ['Tortas', 'Hamburguesas', 'Quesadillas', 'Extras', 'Bebidas'];
+    fetch('/api/productos.php')
+      .then(r => r.json())
+      .then(lista => {
+        const porCat = {};
+        lista.forEach(p => { (porCat[p.categoria] ||= []).push(p); });
+        const caja = document.getElementById('menu-api');
+        orden.forEach(cat => {
+          if (!porCat[cat]) return;
+          const h = document.createElement('h2');
+          h.className = 'text-2xl font-semibold';
+          h.textContent = cat;
+          caja.appendChild(h);
+          if (notas[cat]) {
+            const n = document.createElement('p');
+            n.className = 'text-gray-700';
+            n.textContent = notas[cat];
+            caja.appendChild(n);
+          }
+          const grid = document.createElement('div');
+          grid.className = 'mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6';
+          porCat[cat].forEach(p => {
+            const fig = document.createElement('figure');
+            fig.className = 'tarjeta text-center';
+            fig.innerHTML = '<img class="aspect-square w-full rounded-lg object-cover" src="image/uploads/' + p.foto + '" alt="">'
+              + '<figcaption class="mt-2 font-semibold"></figcaption>'
+              + '<p class="mt-1 precio">$' + Number(p.precio).toFixed(Number(p.precio) % 1 ? 2 : 0) + '</p>';
+            fig.querySelector('figcaption').textContent = p.nombre;
+            fig.querySelector('img').alt = p.nombre;
+            grid.appendChild(fig);
+          });
+          caja.appendChild(grid);
+        });
+      });
   </script>
 </body>
 </html>

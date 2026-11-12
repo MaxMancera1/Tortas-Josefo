@@ -1,0 +1,39 @@
+{
+  "info": {
+    "name": "Tortas Josefo APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "base", "value": "http://127.0.0.1:8081/api" }],
+  "item": [
+    {
+      "name": "Productos",
+      "item": [
+        { "name": "GET all", "request": { "method": "GET", "url": "{{base}}/productos.php" } },
+        { "name": "GET one", "request": { "method": "GET", "url": "{{base}}/productos.php?id=1" } },
+        { "name": "POST create", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Torta Postman\",\n  \"categoria\": \"Tortas\",\n  \"precio\": 50,\n  \"foto\": \"torta-cubana.png\"\n}" }, "url": "{{base}}/productos.php" } },
+        { "name": "POST update", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Torta editada\",\n  \"precio\": 55\n}" }, "url": "{{base}}/productos.php?id=1" } },
+        { "name": "DELETE", "request": { "method": "DELETE", "url": "{{base}}/productos.php?id=99" } }
+      ]
+    },
+    {
+      "name": "Promociones",
+      "item": [
+        { "name": "GET all", "request": { "method": "GET", "url": "{{base}}/promociones.php" } },
+        { "name": "GET one", "request": { "method": "GET", "url": "{{base}}/promociones.php?id=1" } },
+        { "name": "POST create", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Promo Postman\",\n  \"descripcion\": \"Creada desde Postman\",\n  \"precio\": 80,\n  \"vigencia\": \"2026-12-31\",\n  \"imagen\": \"promo-combo.png\"\n}" }, "url": "{{base}}/promociones.php" } },
+        { "name": "POST update", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Promo editada\",\n  \"precio\": 90\n}" }, "url": "{{base}}/promociones.php?id=1" } },
+        { "name": "DELETE", "request": { "method": "DELETE", "url": "{{base}}/promociones.php?id=99" } }
+      ]
+    },
+    {
+      "name": "Sucursales",
+      "item": [
+        { "name": "GET all", "request": { "method": "GET", "url": "{{base}}/sucursales.php" } },
+        { "name": "GET one", "request": { "method": "GET", "url": "{{base}}/sucursales.php?id=2" } },
+        { "name": "POST create", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Sucursal Postman\",\n  \"direccion\": \"Calle de prueba 123, Cortazar\",\n  \"telefono\": \"411 111 1111\"\n}" }, "url": "{{base}}/sucursales.php" } },
+        { "name": "POST update", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Sucursal editada\"\n}" }, "url": "{{base}}/sucursales.php?id=2" } },
+        { "name": "DELETE", "request": { "method": "DELETE", "url": "{{base}}/sucursales.php?id=99" } }
+      ]
+    }
+  ]
+}

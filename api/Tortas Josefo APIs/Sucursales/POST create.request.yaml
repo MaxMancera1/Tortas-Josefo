@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{base}}/sucursales.php"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nombre": "Sucursal Postman",
+      "direccion": "Calle de prueba 123, Cortazar",
+      "telefono": "411 111 1111"
+    }
+order: 3000

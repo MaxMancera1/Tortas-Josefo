@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Probar API productos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-orange-50 p-6 font-sans text-stone-800">
+  <div class="mx-auto max-w-3xl space-y-4">
+    <h1 class="text-2xl font-bold text-orange-800">Consumo JS · API productos</h1>
+    <p class="text-sm text-gray-600">GET, POST (alta), POST (editar) y DELETE sobre <code>/api/productos.php</code>.</p>
+
+    <div class="grid gap-3 rounded-xl border border-orange-200 bg-white p-4 sm:grid-cols-2">
+      <label class="text-sm">Id (GET one, update, delete)
+        <input id="f-id" class="mt-1 w-full rounded border px-3 py-2" value="1">
+      </label>
+      <label class="text-sm">Nombre
+        <input id="f-nombre" class="mt-1 w-full rounded border px-3 py-2" value="Torta JS">
+      </label>
+      <label class="text-sm">Categoría
+        <input id="f-categoria" class="mt-1 w-full rounded border px-3 py-2" value="Tortas">
+      </label>
+      <label class="text-sm">Precio
+        <input id="f-precio" class="mt-1 w-full rounded border px-3 py-2" type="number" value="51">
+      </label>
+      <label class="text-sm sm:col-span-2">Foto
+        <input id="f-foto" class="mt-1 w-full rounded border px-3 py-2" type="file" accept="image/jpeg,image/png,image/webp">
+      </label>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <button id="btn-all" class="rounded bg-orange-500 px-3 py-2 text-white">GET all</button>
+      <button id="btn-one" class="rounded bg-orange-500 px-3 py-2 text-white">GET one</button>
+      <button id="btn-create" class="rounded bg-green-600 px-3 py-2 text-white">POST create</button>
+      <button id="btn-update" class="rounded bg-blue-600 px-3 py-2 text-white">POST update</button>
+      <button id="btn-delete" class="rounded bg-red-600 px-3 py-2 text-white">DELETE</button>
+    </div>
+    <p class="text-sm">Último id: <span id="ultimo">—</span></p>
+    <pre id="salida" class="overflow-auto rounded-xl bg-white p-4 text-xs shadow"></pre>
+  </div>
+  <script>
+    const API = "/api/productos.php";
+    const salida = document.getElementById("salida");
+    const ultimo = document.getElementById("ultimo");
+    const v = (id) => document.getElementById(id).value.trim();
+    function form() {
+      const fd = new FormData();
+      fd.append("nombre", v("f-nombre"));
+      fd.append("categoria", v("f-categoria"));
+      fd.append("precio", v("f-precio"));
+      const file = document.getElementById("f-foto").files[0];
+      if (file) fd.append("foto", file);
+      return fd;
+    }
+    function ver(x) { salida.textContent = JSON.stringify(x, null, 2); }
+    async function pedir(url, opts) {
+      const r = await fetch(url, opts);
+      const d = await r.json();
+      if (d.id) {
+        ultimo.textContent = d.id;
+        document.getElementById("f-id").value = d.id;
+      }
+      ver({ status: r.status, body: d });
+    }
+    document.getElementById("btn-all").onclick = () => pedir(API);
+    document.getElementById("btn-one").onclick = () => pedir(API + "?id=" + v("f-id"));
+    document.getElementById("btn-create").onclick = () => pedir(API, { method: "POST", body: form() });
+    document.getElementById("btn-update").onclick = () => pedir(API + "?id=" + v("f-id"), { method: "POST", body: form() });
+    document.getElementById("btn-delete").onclick = () => pedir(API + "?id=" + v("f-id"), { method: "DELETE" });
+  </script>
+</body>
+</html>

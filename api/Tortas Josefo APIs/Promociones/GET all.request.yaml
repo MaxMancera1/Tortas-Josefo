@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base}}/promociones.php"
+method: GET
+order: 1000

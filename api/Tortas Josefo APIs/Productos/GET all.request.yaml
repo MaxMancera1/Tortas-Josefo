@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base}}/productos.php"
+method: GET
+order: 1000

@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{base}}/productos.php"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "nombre": "Torta Postman",
+      "categoria": "Tortas",
+      "precio": 50,
+      "foto": "torta-cubana.png"
+    }
+order: 3000

@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{base}}/promociones.php?id=1"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "titulo": "Promo editada",
+      "precio": 90
+    }
+order: 4000

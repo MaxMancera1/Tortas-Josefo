@@ -59,29 +59,33 @@
       <h1 class="text-4xl font-semibold">Promociones</h1>
       <p class="mt-3 text-xl text-gray-800">Ofertas del puesto, fáciles de pedir.</p>
     </section>
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-      <figure class="tarjeta text-center">
-        <img class="aspect-square w-full rounded-lg object-cover" src="image/promo-refresco.png" alt="Tres tortas y un refresco">
-        <figcaption class="mt-2 font-semibold">3 tortas = refresco</figcaption>
-        <p class="mt-1 text-sm text-gray-700">En la compra de 3 tortas, el refresco va gratis.</p>
-      </figure>
-      <figure class="tarjeta text-center">
-        <img class="aspect-square w-full rounded-lg object-cover" src="image/hamburguesa.png" alt="Hamburguesas">
-        <figcaption class="mt-2 font-semibold">2 hamburguesas $100</figcaption>
-        <p class="mt-1 text-sm text-gray-700">Dos sencillas por $100 (ahorras $10). Cualquier día.</p>
-      </figure>
-      <figure class="tarjeta text-center">
-        <img class="aspect-square w-full rounded-lg object-cover" src="image/quesadilla.png" alt="Quesadillas">
-        <figcaption class="mt-2 font-semibold">Quesadilla + jamaica $50</figcaption>
-        <p class="mt-1 text-sm text-gray-700">Una quesadilla de queso y un agua de jamaica.</p>
-      </figure>
-    </div>
-    <p class="text-center text-gray-800">También sigue el combo torta + jamaica por $65. Pregunta en el puesto.</p>
+    <div id="promos-api" class="grid grid-cols-1 gap-6 sm:grid-cols-3"></div>
+    <p class="text-center text-gray-800">Pregunta en el puesto. Las ofertas se actualizan solas desde el panel.</p>
     <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
       <p>Antonio Madrazo y Colegio Militar · 411 103 8297</p>
       <p class="mt-1"><a href="admin/login.php" class="text-xs underline">Acceso dueño</a></p>
     </footer>
   </div>
+  <script>
+    fetch('/api/promociones.php')
+      .then(r => r.json())
+      .then(lista => {
+        const caja = document.getElementById('promos-api');
+        lista.forEach(p => {
+          const fig = document.createElement('figure');
+          fig.className = 'tarjeta text-center';
+          fig.innerHTML = '<img class="aspect-square w-full rounded-lg object-cover" src="image/uploads/' + p.imagen + '" alt="">'
+            + '<figcaption class="mt-2 font-semibold"></figcaption>'
+            + '<p class="mt-1 text-sm text-gray-700"></p>'
+            + '<p class="mt-1 precio">$' + Number(p.precio).toFixed(0) + '</p>'
+            + '<p class="mt-1 text-xs text-gray-500">Hasta ' + p.vigencia + '</p>';
+          fig.querySelector('img').alt = p.titulo;
+          fig.querySelector('figcaption').textContent = p.titulo;
+          fig.querySelectorAll('p')[0].textContent = p.descripcion;
+          caja.appendChild(fig);
+        });
+      });
+  </script>
 </body>
 </html>

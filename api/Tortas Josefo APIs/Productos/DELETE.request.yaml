@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base}}/productos.php?id=1"
+method: DELETE
+order: 5000
