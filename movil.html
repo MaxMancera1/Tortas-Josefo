@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Josefo">
+  <title>Josefo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="image/favicon.png">
+  <link rel="apple-touch-icon" href="image/favicon.png">
+</head>
+<body class="bg-orange-50 font-sans text-stone-800">
+  <header class="sticky top-0 z-10 bg-orange-500 px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] text-white shadow">
+    <p class="text-xs uppercase tracking-wide text-orange-100">Misma API del sitio</p>
+    <h1 class="text-2xl font-bold">Tortas Josefo</h1>
+  </header>
+
+  <main class="mx-auto max-w-lg space-y-4 px-4 py-4 pb-10">
+    <section class="rounded-2xl border border-orange-200 bg-white p-4 shadow-sm">
+      <h2 id="titulo-form" class="text-lg font-semibold">Nuevo producto</h2>
+      <form id="form" class="mt-3 space-y-3">
+        <input id="f-id" type="hidden">
+        <label class="block text-sm">Nombre
+          <input id="f-nombre" required class="mt-1 w-full rounded-xl border px-3 py-3 text-base" placeholder="Torta del día">
+        </label>
+        <label class="block text-sm">Categoría
+          <input id="f-categoria" required class="mt-1 w-full rounded-xl border px-3 py-3 text-base" value="Tortas">
+        </label>
+        <label class="block text-sm">Precio
+          <input id="f-precio" required type="number" min="1" class="mt-1 w-full rounded-xl border px-3 py-3 text-base" value="50">
+        </label>
+        <div class="flex gap-2">
+          <button class="flex-1 rounded-xl bg-orange-500 py-3 font-semibold text-white" type="submit">Guardar</button>
+          <button id="btn-borrar" class="hidden rounded-xl bg-red-600 px-4 py-3 font-semibold text-white" type="button">Borrar</button>
+        </div>
+        <button id="btn-limpiar" class="hidden text-sm text-orange-700 underline" type="button">Nuevo producto</button>
+        <p id="aviso" class="text-sm text-red-700"></p>
+      </form>
+    </section>
+
+    <section>
+      <div class="mb-2 flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Menú</h2>
+        <button id="btn-cargar" class="rounded-full bg-orange-100 px-3 py-1 text-sm font-semibold text-orange-800" type="button">Actualizar</button>
+      </div>
+      <div id="lista" class="space-y-2"></div>
+    </section>
+
+    <section class="rounded-2xl border border-dashed border-orange-300 bg-white p-4">
+      <label class="block text-sm" for="f-servidor">Servidor (solo fuera de casa)
+        <input id="f-servidor" class="mt-1 w-full rounded-xl border px-3 py-3 text-base" placeholder="https://tu-enlace.trycloudflare.com" inputmode="url" autocapitalize="off">
+      </label>
+      <button id="btn-servidor" class="mt-3 w-full rounded-xl bg-stone-800 py-3 font-semibold text-white" type="button">Usar este servidor</button>
+      <p class="mt-2 text-xs text-gray-500">En casa déjalo vacío. En la uni pega el enlace público de tu laptop.</p>
+    </section>
+  </main>
+
+  <script>
+    const lista = document.getElementById("lista");
+    const campoServidor = document.getElementById("f-servidor");
+    campoServidor.value = localStorage.getItem("josefo-api") || "";
+
+    function api() {
+      const base = (localStorage.getItem("josefo-api") || "").replace(/\/$/, "");
+      return base + "/api/productos.php";
+    }
+    const aviso = document.getElementById("aviso");
+    const v = (id) => document.getElementById(id).value.trim();
+
+    function cuerpo() {
+      return {
+        nombre: v("f-nombre"),
+        categoria: v("f-categoria"),
+        precio: Number(v("f-precio")),
+        foto: "torta-cubana.png"
+      };
+    }
+
+    async function pedir(url, opts) {
+      const r = await fetch(url, opts);
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "No se pudo");
+      return d;
+    }
+
+    function tarjeta(p) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "flex w-full items-center justify-between rounded-2xl border border-orange-100 bg-white px-4 py-3 text-left shadow-sm";
+      const izq = document.createElement("span");
+      const nom = document.createElement("span");
+      nom.className = "block font-semibold";
+      nom.textContent = p.nombre;
+      const cat = document.createElement("span");
+      cat.className = "block text-sm text-gray-500";
+      cat.textContent = p.categoria;
+      izq.append(nom, cat);
+      const precio = document.createElement("span");
+      precio.className = "text-lg font-bold text-orange-700";
+      precio.textContent = "$" + Number(p.precio).toFixed(0);
+      b.append(izq, precio);
+      b.onclick = () => cargarUno(p.id);
+      return b;
+    }
+
+    async function cargar() {
+      aviso.textContent = "";
+      const datos = await pedir(api());
+      lista.replaceChildren();
+      datos.forEach((p) => lista.appendChild(tarjeta(p)));
+    }
+
+    function modoNuevo() {
+      document.getElementById("f-id").value = "";
+      document.getElementById("titulo-form").textContent = "Nuevo producto";
+      document.getElementById("btn-borrar").classList.add("hidden");
+      document.getElementById("btn-limpiar").classList.add("hidden");
+    }
+
+    async function cargarUno(id) {
+      const p = await pedir(api() + "?id=" + id);
+      document.getElementById("f-id").value = p.id;
+      document.getElementById("f-nombre").value = p.nombre;
+      document.getElementById("f-categoria").value = p.categoria;
+      document.getElementById("f-precio").value = Number(p.precio);
+      document.getElementById("titulo-form").textContent = "Editar #" + p.id;
+      document.getElementById("btn-borrar").classList.remove("hidden");
+      document.getElementById("btn-limpiar").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.getElementById("form").onsubmit = async (e) => {
+      e.preventDefault();
+      aviso.textContent = "";
+      const id = v("f-id");
+      try {
+        await pedir(id ? api() + "?id=" + id : api(), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cuerpo())
+        });
+        document.getElementById("form").reset();
+        document.getElementById("f-categoria").value = "Tortas";
+        document.getElementById("f-precio").value = "50";
+        modoNuevo();
+        await cargar();
+      } catch (err) {
+        aviso.textContent = err.message;
+      }
+    };
+
+    document.getElementById("btn-borrar").onclick = async () => {
+      const id = v("f-id");
+      if (!id) return;
+      await pedir(api() + "?id=" + id, { method: "DELETE" });
+      document.getElementById("form").reset();
+      modoNuevo();
+      await cargar();
+    };
+
+    document.getElementById("btn-limpiar").onclick = () => {
+      document.getElementById("form").reset();
+      document.getElementById("f-categoria").value = "Tortas";
+      document.getElementById("f-precio").value = "50";
+      modoNuevo();
+    };
+
+    document.getElementById("btn-servidor").onclick = () => {
+      const url = campoServidor.value.trim().replace(/\/$/, "");
+      if (url && !/^https?:\/\//.test(url)) {
+        aviso.textContent = "El servidor debe empezar con http:// o https://";
+        return;
+      }
+      localStorage.setItem("josefo-api", url);
+      cargar().catch((err) => { aviso.textContent = err.message; });
+    };
+    document.getElementById("btn-cargar").onclick = () => cargar().catch((err) => { aviso.textContent = err.message; });
+    cargar().catch((err) => { aviso.textContent = err.message; });
+  </script>
+</body>
+</html>

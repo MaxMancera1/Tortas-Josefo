@@ -4,7 +4,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-    require_once __DIR__ . '/config.php';
+    $cfg = __DIR__ . '/config.php';
+    require_once is_file($cfg) ? $cfg : __DIR__ . '/config.example.php';
     require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/Exception.php';
     require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
     require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/SMTP.php';

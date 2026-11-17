@@ -74,8 +74,8 @@
     </div>
 
     <h2 class="text-2xl font-semibold">Haz tu pedido</h2>
-    <p class="text-sm text-gray-600">Esto es una práctica de la página. No se cobra en línea.</p>
-    <form class="cuadro-naranja mx-auto max-w-xl space-y-4" action="gracias.html" method="get">
+    <p class="text-sm text-gray-600">PayPal está en modo sandbox: es una prueba y no cobra dinero real. Efectivo y transferencia solo anotan el pedido.</p>
+    <form id="pedido-form" class="cuadro-naranja mx-auto max-w-xl space-y-4" action="gracias.html" method="get">
       <div>
         <label class="font-semibold" for="nombre">Nombre</label>
         <input class="mt-1 w-full rounded border border-gray-300 px-3 py-2" type="text" id="nombre" name="nombre" required>
@@ -84,13 +84,6 @@
         <label class="font-semibold" for="pedido">Qué pide</label>
         <select class="mt-1 w-full rounded border border-gray-300 px-3 py-2" id="pedido" name="pedido" required>
           <option value="">Elige...</option>
-          <option>Torta milanesa</option>
-          <option>Torta pierna</option>
-          <option>Torta cubana</option>
-          <option>Torta jamón</option>
-          <option>Hamburguesa</option>
-          <option>Quesadilla</option>
-          <option>Papas</option>
         </select>
       </div>
       <div>
@@ -106,8 +99,15 @@
         <p class="font-semibold">Pago</p>
         <label class="mt-1 block"><input type="radio" name="pago" value="efectivo" required> Efectivo al recibir</label>
         <label class="block"><input type="radio" name="pago" value="transferencia"> Transferencia</label>
+        <label class="block"><input type="radio" name="pago" value="paypal"> PayPal</label>
       </div>
-      <button class="w-full rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600" type="submit">Enviar pedido</button>
+      <p id="total" class="text-lg font-semibold">Total: $0</p>
+      <p id="pedido-aviso" class="text-sm text-red-700"></p>
+      <button id="enviar" class="w-full rounded-lg bg-orange-500 px-4 py-2 font-semibold text-white shadow hover:bg-orange-600" type="submit">Anotar pedido</button>
+      <div id="paypal-caja" class="hidden space-y-2">
+        <div id="paypal-button-container"></div>
+        <p id="paypal-aviso" class="text-sm text-red-700"></p>
+      </div>
     </form>
     <footer class="rounded-xl bg-orange-600 px-4 py-4 text-center text-sm text-white shadow-md">
       <p>Tortas Josefo · Cortazar, Gto.</p>
@@ -115,5 +115,139 @@
       <p class="mt-1"><a href="admin/login.php" class="text-xs underline">Acceso dueño</a></p>
     </footer>
   </div>
+  <script>
+    const form = document.getElementById("pedido-form");
+    const pedido = document.getElementById("pedido");
+    const totalTxt = document.getElementById("total");
+    const enviar = document.getElementById("enviar");
+    const caja = document.getElementById("paypal-caja");
+    const aviso = document.getElementById("paypal-aviso");
+
+    function total() {
+      const op = pedido.selectedOptions[0];
+      return Number(op && op.dataset.precio) || 0;
+    }
+
+    function esPaypal() {
+      const marcado = form.querySelector('input[name="pago"]:checked');
+      return marcado && marcado.value === "paypal";
+    }
+
+    function actualizar() {
+      totalTxt.textContent = "Total: $" + total();
+      const paypal = esPaypal();
+      caja.classList.toggle("hidden", !paypal);
+      enviar.classList.toggle("hidden", paypal);
+    }
+
+    const pedidoAviso = document.getElementById("pedido-aviso");
+
+    fetch("/api/productos.php")
+      .then(function (r) { return r.json(); })
+      .then(function (lista) {
+        lista.sort(function (a, b) {
+          return a.categoria.localeCompare(b.categoria, "es") || a.nombre.localeCompare(b.nombre, "es");
+        });
+        lista.forEach(function (p) {
+          const op = document.createElement("option");
+          op.value = p.nombre;
+          op.dataset.id = p.id;
+          op.dataset.precio = Number(p.precio);
+          op.textContent = p.nombre + " — $" + Number(p.precio).toFixed(0);
+          pedido.appendChild(op);
+        });
+      })
+      .catch(function () {
+        pedidoAviso.textContent = "No pude cargar el menú.";
+      });
+
+    pedido.addEventListener("change", actualizar);
+    form.querySelectorAll('input[name="pago"]').forEach(function (radio) {
+      radio.addEventListener("change", actualizar);
+    });
+
+    function datosPedido(paypalOrden) {
+      const entrega = form.querySelector('input[name="entrega"]:checked');
+      const pago = form.querySelector('input[name="pago"]:checked');
+      return {
+        nombre: document.getElementById("nombre").value.trim(),
+        producto_id: pedido.selectedOptions[0] ? pedido.selectedOptions[0].dataset.id || "" : "",
+        entrega: entrega ? entrega.value : "",
+        direccion: document.getElementById("direccion").value.trim(),
+        metodo_pago: paypalOrden ? "paypal" : (pago ? pago.value : ""),
+        paypal_orden: paypalOrden || ""
+      };
+    }
+
+    async function guardar(paypalOrden) {
+      pedidoAviso.textContent = "";
+      const cuerpo = datosPedido(paypalOrden);
+      if (cuerpo.entrega === "domicilio" && cuerpo.direccion.length < 5) {
+        pedidoAviso.textContent = "Escribe la dirección de entrega.";
+        return;
+      }
+      const r = await fetch("/api/pedidos.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cuerpo)
+      });
+      const d = await r.json();
+      if (!r.ok) {
+        pedidoAviso.textContent = d.error || "No se guardó el pedido.";
+        return;
+      }
+      location.href = "gracias.html?id=" + d.id;
+    }
+
+    form.addEventListener("submit", function (evento) {
+      evento.preventDefault();
+      if (esPaypal() || !form.reportValidity() || total() <= 0) return;
+      guardar();
+    });
+
+    fetch("/api/paypal.php")
+      .then(function (r) { return r.json(); })
+      .then(function (d) { return d.client_id || ""; })
+      .catch(function () { return ""; })
+      .then(function (PAYPAL_CLIENT_ID) {
+        if (!PAYPAL_CLIENT_ID) {
+          aviso.textContent = "Falta el Client ID de Sandbox. Va en PAYPAL_CLIENT_ID, dentro de admin/models/config.php.";
+          return;
+        }
+        const sdk = document.createElement("script");
+        sdk.src = "https://www.paypal.com/sdk/js?client-id=" + encodeURIComponent(PAYPAL_CLIENT_ID) + "&currency=MXN&intent=capture";
+        sdk.onload = function () {
+          paypal.Buttons({
+            onClick: function (data, actions) {
+              const cuerpo = datosPedido("paypal");
+              if (!form.reportValidity() || total() <= 0 || (cuerpo.entrega === "domicilio" && cuerpo.direccion.length < 5)) {
+                if (cuerpo.entrega === "domicilio" && cuerpo.direccion.length < 5) {
+                  pedidoAviso.textContent = "Escribe la dirección de entrega.";
+                }
+                return actions.reject();
+              }
+              return actions.resolve();
+            },
+            createOrder: function (data, actions) {
+              return actions.order.create({
+                purchase_units: [{
+                  description: pedido.value,
+                  amount: { currency_code: "MXN", value: total().toFixed(2) }
+                }]
+              });
+            },
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (detalle) {
+                return guardar(detalle.id);
+              });
+            }
+          }).render("#paypal-button-container");
+        };
+        sdk.onerror = function () {
+          aviso.textContent = "No cargó PayPal. Revisa el Client ID de Sandbox.";
+        };
+        document.head.appendChild(sdk);
+      });
+  </script>
 </body>
 </html>

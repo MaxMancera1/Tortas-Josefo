@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/admin/models/config.php';
+$cfg = __DIR__ . '/admin/models/config.php';
+require_once is_file($cfg) ? $cfg : __DIR__ . '/admin/models/config.example.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

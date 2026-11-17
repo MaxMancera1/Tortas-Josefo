@@ -130,3 +130,21 @@ INSERT INTO promociones (titulo, descripcion, precio, vigencia, imagen) VALUES
   ('2 hamburguesas $100', 'Dos sencillas por $100 (ahorras $10). Cualquier día.', 100, '2026-12-31', 'hamburguesa.png'),
   ('Quesadilla + jamaica', 'Una quesadilla de queso y un agua de jamaica.', 50, '2026-11-30', 'quesadilla.png'),
   ('Combo torta + jamaica', 'Cualquier torta sencilla con agua de jamaica.', 65, '2026-12-31', 'promo-combo.png');
+
+CREATE TABLE IF NOT EXISTS pedidos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  pedido VARCHAR(150) NOT NULL,
+  total DECIMAL(8,2) NOT NULL,
+  entrega VARCHAR(20) NOT NULL,
+  direccion VARCHAR(255) NOT NULL DEFAULT '',
+  metodo_pago VARCHAR(20) NOT NULL,
+  estatus VARCHAR(20) NOT NULL DEFAULT 'pendiente',
+  paypal_orden VARCHAR(40) NULL,
+  creado DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT IGNORE INTO permiso (permiso) VALUES ('Pedidos');
+INSERT IGNORE INTO rol_permiso (id_rol, id_permiso)
+  SELECT rol.id_rol, permiso.id_permiso FROM rol, permiso
+  WHERE permiso.permiso = 'Pedidos' AND rol.rol IN ('Dueño', 'Encargado', 'Cajero');

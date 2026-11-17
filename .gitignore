@@ -1,0 +1,10 @@
+# Secretos locales. Copia admin/models/config.example.php a config.php y llena los tuyos.
+admin/models/config.php
+
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+credentials.json

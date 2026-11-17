@@ -1,0 +1,73 @@
+<?php
+$metodos = ['efectivo' => 'Efectivo', 'transferencia' => 'Transferencia', 'paypal' => 'PayPal'];
+$pendientes = 0;
+$pagados = 0;
+$cobrado = 0;
+foreach ($pedidos as $pedido) {
+    if ($pedido['estatus'] === 'pagado') {
+        $pagados++;
+        $cobrado += $pedido['total'];
+    } else {
+        $pendientes++;
+    }
+}
+?>
+<div class="flex flex-wrap items-end justify-between gap-3">
+  <div>
+    <h1 class="text-3xl font-semibold">Pedidos</h1>
+    <p class="text-gray-600">PayPal entra pagado. Efectivo y transferencia esperan a que cobres.</p>
+  </div>
+</div>
+
+<div class="grid gap-3 sm:grid-cols-3">
+  <div class="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4">
+    <p class="text-sm font-medium text-amber-800">Pendientes</p>
+    <p class="text-3xl font-bold text-amber-950"><?php echo $pendientes; ?></p>
+  </div>
+  <div class="rounded-2xl border border-green-200 bg-green-50 px-5 py-4">
+    <p class="text-sm font-medium text-green-800">Pagados</p>
+    <p class="text-3xl font-bold text-green-950"><?php echo $pagados; ?></p>
+  </div>
+  <div class="rounded-2xl border border-orange-200 bg-orange-50 px-5 py-4">
+    <p class="text-sm font-medium text-orange-800">Cobrado</p>
+    <p class="text-3xl font-bold text-orange-950">$<?php echo number_format($cobrado, 0); ?></p>
+  </div>
+</div>
+
+<?php if (!$pedidos): ?>
+<p class="rounded-2xl border border-orange-200 bg-white px-5 py-8 text-center text-gray-600">Todavía no hay pedidos.</p>
+<?php endif; ?>
+
+<div class="space-y-3">
+<?php foreach ($pedidos as $pedido):
+    $pagado = $pedido['estatus'] === 'pagado';
+    $entrega = $pedido['entrega'] === 'domicilio' ? 'A domicilio' : 'Recoger en el puesto';
+?>
+  <article class="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-orange-100 bg-white p-4 shadow-sm <?php echo $pagado ? 'border-l-4 border-l-green-500' : 'border-l-4 border-l-amber-400'; ?>">
+    <div class="flex min-w-0 items-center gap-4">
+      <p class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-lg font-bold text-orange-800">#<?php echo (int) $pedido['id']; ?></p>
+      <div class="min-w-0">
+        <p class="truncate text-lg font-semibold"><?php echo htmlspecialchars($pedido['nombre']); ?></p>
+        <p class="text-gray-700"><?php echo htmlspecialchars($pedido['pedido']); ?> · <?php echo $entrega; ?></p>
+        <?php if ($pedido['direccion'] !== ''): ?>
+        <p class="truncate text-sm text-gray-500"><?php echo htmlspecialchars($pedido['direccion']); ?></p>
+        <?php endif; ?>
+        <p class="text-xs text-gray-400"><?php echo htmlspecialchars(date('d/m/Y H:i', strtotime($pedido['creado']))); ?></p>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center gap-3 sm:justify-end">
+      <p class="text-2xl font-bold text-orange-700">$<?php echo number_format($pedido['total'], 0); ?></p>
+      <span class="rounded-full bg-orange-100 px-3 py-1 text-sm font-semibold text-orange-800"><?php echo $metodos[$pedido['metodo_pago']] ?? htmlspecialchars($pedido['metodo_pago']); ?></span>
+      <?php if ($pagado): ?>
+      <span class="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">Pagado</span>
+      <?php else: ?>
+      <span class="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-800">Pendiente</span>
+      <form method="post" action="pedido.php">
+        <input type="hidden" name="id" value="<?php echo (int) $pedido['id']; ?>">
+        <button class="rounded-lg bg-green-600 px-3 py-2 text-sm font-semibold text-white hover:bg-green-700" type="submit" name="pagar" value="1">Marcar pagado</button>
+      </form>
+      <?php endif; ?>
+    </div>
+  </article>
+<?php endforeach; ?>
+</div>
